@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/nodemon.json",
+  "ext": "ts",
+  "exec": "yarn generate:types && ts-node src/server.ts -- -I",
+  "stdin": false,
+  "ignore" : [
+    "src/app",
+    "payload-types.ts"
+  ]
+}

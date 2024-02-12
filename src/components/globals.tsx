@@ -1,0 +1,27 @@
+import { type PropsWithChildren } from "react"
+import { getPayloadClient } from "@/payload/getPayload"
+import { Footer, Header } from "@/payload/payload-types"
+
+import { FooterContainer } from "./footer/footer-container"
+import { NavContainer } from "./navigation/nav-container"
+
+export const Globals = async ({ children }: PropsWithChildren) => {
+  const payload = await getPayloadClient()
+  const header = (await payload.findGlobal({
+    slug: "header",
+    depth: 2,
+  })) as Header
+
+  const footer = (await payload.findGlobal({
+    slug: "footer",
+    depth: 1,
+  })) as Footer
+
+  return (
+    <>
+      <NavContainer data={header} />
+      <main className="flex flex-1 flex-col">{children}</main>
+      <FooterContainer data={footer} />
+    </>
+  )
+}
