@@ -64,9 +64,10 @@ export const footer: Omit<Footer, "id" | "createdAt" | "updatedAt"> = {
       ],
     },
     {
+      type: "small-body",
       children: [
         {
-          text: "Praça do Município, 4704-514 Braga",
+          text: "Praça do Município, \n4704-514 Braga",
         },
       ],
     },
@@ -102,9 +103,10 @@ export const footer: Omit<Footer, "id" | "createdAt" | "updatedAt"> = {
       ],
     },
     {
+      type: "small-body",
       children: [
         {
-          text: "São João do Souto, 4700-312 Braga",
+          text: "São João do Souto, \n4700-312 Braga",
         },
       ],
     },
@@ -114,7 +116,7 @@ export const footer: Omit<Footer, "id" | "createdAt" | "updatedAt"> = {
     isLink: true,
   },
   legal: {
-    type: "reference",
+    link_type: "reference",
     newTab: null,
     reference: {
       relationTo: "pages",

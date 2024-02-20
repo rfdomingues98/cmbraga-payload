@@ -1,0 +1,7 @@
+@import "~payload/scss";
+
+.rich-text-small-body {
+  font-size: base(.5);
+  color: var(--theme-text);
+  opacity: .6;
+}

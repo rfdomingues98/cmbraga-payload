@@ -53,9 +53,8 @@ const serialize = (children?: Children): React.ReactNode[] =>
 
       return <Fragment key={i}>{text}</Fragment>
     }
-
     if (!node) {
-      return null
+      return <span className="my-8"></span>
     }
 
     switch (node.type) {
@@ -105,7 +104,12 @@ const serialize = (children?: Children): React.ReactNode[] =>
             <ArrowUpRight className="transition-all ease-in-out group-hover:-translate-y-1 group-hover:translate-x-1" />
           </CMSLink>
         )
-
+      case "small-body":
+        return (
+          <p key={i} className="mt-3 whitespace-pre-line text-sm text-primary/60">
+            {serialize(node.children)}
+          </p>
+        )
       default:
         return <p key={i}>{serialize(node?.children)}</p>
     }

@@ -11,9 +11,7 @@ export const Menus: CollectionConfig = {
   slug: "menus",
   admin: {
     useAsTitle: "title",
-  },
-  versions: {
-    drafts: true,
+    defaultColumns: ["title", "description", "updatedAt"],
   },
   access: {
     read: adminsOrPublished,
@@ -42,7 +40,7 @@ export const Menus: CollectionConfig = {
           },
         },
         link({
-          appearances: false,
+          disableLabel: true,
           overrides: {
             name: "menuLink",
             admin: {
@@ -76,7 +74,7 @@ export const Menus: CollectionConfig = {
           },
           type: "group",
           fields: [
-            link({ appearances: false }),
+            link(),
             iconPicker({
               name: "lucideIcons",
               label: "Lucide Icons",

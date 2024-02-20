@@ -1,4 +1,4 @@
-import type { Page } from "../payload-types";
+import type { Page } from "../payload-types"
 
 export const home: Omit<Page, "id" | "createdAt" | "updatedAt"> = {
   title: "Home",
@@ -6,39 +6,86 @@ export const home: Omit<Page, "id" | "createdAt" | "updatedAt"> = {
   _status: "published",
   layout: [
     {
-      blockType: "cta",
-      blockName: "CTA",
-      richText: [
+      darkerBackground: null,
+      blockName: "Header",
+      columns: [
         {
-          children: [
+          size: "half",
+          blocks: [
             {
-              text: "This is a call to action",
-            },
-          ],
-          type: "h4",
-        },
-        {
-          children: [
-            {
-              text: "This is a custom layout building block ",
-            },
-            {
-              type: "link",
-              linkType: "custom",
-              url: "/admin",
-              children: [
+              richText: [
                 {
-                  text: "configured in the admin dashboard",
+                  type: "h1",
+                  children: [
+                    {
+                      text: "Câmara Municipal de Braga",
+                    },
+                  ],
                 },
               ],
+              blockName: "Title",
+              blockType: "richTextBlock",
             },
             {
-              text: ".",
+              label: "Siga-nos",
+              blockName: "Social Media Links",
+              socials: [
+                {
+                  socialMedia: {
+                    socialLink: {
+                      link_type: "custom",
+                      newTab: true,
+                      url: "https://linkedin.com",
+                    },
+                    socialIcon: "LuLinkedin",
+                  },
+                },
+              ],
+              blockType: "socials",
+            },
+          ],
+        },
+        {
+          size: "half",
+          blocks: [
+            {
+              blockName: "Alertas",
+              blockType: "alertCarousel",
+              alerts: [1, 2],
             },
           ],
         },
       ],
-      links: null,
+      blockType: "content",
+    },
+    {
+      type: "highImpact",
+      richText: [
+        {
+          type: "h2",
+          children: [
+            {
+              text: "Braga autêntica",
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: "A Câmara Municipal de Braga orgulha-se da sua contribuição para",
+            },
+          ],
+        },
+      ],
+      blockName: "Hero",
+      blockType: "hero",
+      link: {
+        link_type: "custom",
+        newTab: null,
+        url: "#",
+        label: "Ver mais...",
+      },
+      media: 3,
     },
   ],
-};
+}

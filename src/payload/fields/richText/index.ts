@@ -1,18 +1,18 @@
-import { slateEditor } from '@payloadcms/richtext-slate'
+import { slateEditor } from "@payloadcms/richtext-slate"
 import type {
   AdapterArguments,
   RichTextElement,
   RichTextLeaf,
-} from '@payloadcms/richtext-slate/dist/types'
-import type { RichTextField } from 'payload/dist/fields/config/types'
+} from "@payloadcms/richtext-slate/dist/types"
+import type { RichTextField } from "payload/dist/fields/config/types"
 
-import deepMerge from '../../utilities/deepMerge'
-import link from '../link'
-import elements from './elements'
-import leaves from './leaves'
+import deepMerge from "../../utilities/deepMerge"
+import link from "../link"
+import elements from "./elements"
+import leaves from "./leaves"
 
 type RichText = (
-  overrides?: Partial<RichTextField> & { admin?: AdapterArguments['admin'] },
+  overrides?: Partial<RichTextField> & { admin?: AdapterArguments["admin"] },
   additions?: {
     elements?: RichTextElement[]
     leaves?: RichTextLeaf[]
@@ -26,7 +26,7 @@ const richText: RichText = (
     leaves: [],
   },
 ) => {
-  const slateOptions = deepMerge<AdapterArguments['admin'], AdapterArguments['admin']>(
+  const slateOptions = deepMerge<AdapterArguments["admin"], AdapterArguments["admin"]>(
     overrides?.admin || {},
     {
       upload: {
@@ -34,9 +34,9 @@ const richText: RichText = (
           media: {
             fields: [
               {
-                type: 'richText',
-                name: 'caption',
-                label: 'Caption',
+                type: "richText",
+                name: "caption",
+                label: "Caption",
                 editor: slateEditor({
                   admin: {
                     elements: [...elements],
@@ -45,31 +45,30 @@ const richText: RichText = (
                 }),
               },
               {
-                type: 'radio',
-                name: 'alignment',
-                label: 'Alignment',
+                type: "radio",
+                name: "alignment",
+                label: "Alignment",
                 options: [
                   {
-                    label: 'Left',
-                    value: 'left',
+                    label: "Left",
+                    value: "left",
                   },
                   {
-                    label: 'Center',
-                    value: 'center',
+                    label: "Center",
+                    value: "center",
                   },
                   {
-                    label: 'Right',
-                    value: 'right',
+                    label: "Right",
+                    value: "right",
                   },
                 ],
               },
               {
-                name: 'enableLink',
-                type: 'checkbox',
-                label: 'Enable Link',
+                name: "enableLink",
+                type: "checkbox",
+                label: "Enable Link",
               },
               link({
-                appearances: false,
                 disableLabel: true,
                 overrides: {
                   admin: {
@@ -94,8 +93,8 @@ const richText: RichText = (
 
   return deepMerge<RichTextField, Partial<RichTextField>>(
     {
-      name: 'richText',
-      type: 'richText',
+      name: "richText",
+      type: "richText",
       required: true,
       editor: slateEditor({
         admin: slateOptions,

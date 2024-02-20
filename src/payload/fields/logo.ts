@@ -47,7 +47,6 @@ export const logoField: Logo = (overrides = {}) =>
               },
             },
             link({
-              appearances: false,
               overrides: {
                 name: "logoLink",
                 admin: {

@@ -60,7 +60,7 @@ const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { link: Menu["menuLink"] }
 >(({ className, link, title, children, ...props }, ref) => {
-  let href = link.type === "reference" ? `/${(link.reference.value as Page).slug}` : link.url
+  let href = link.link_type === "reference" ? `/${(link.reference.value as Page).slug}` : link.url
   if (href === "/home") href = "/"
 
   return (

@@ -31,7 +31,7 @@ const LanguageSelector = () => {
       onValueChange={onSelectChange}
       aria-label="Language Selector"
     >
-      <SelectTrigger className="w-[80px] justify-end gap-3 border-none">
+      <SelectTrigger className="w-[90px] justify-end gap-3 border-none text-primary/50 transition-all delay-150 ease-in-out focus-within:text-primary hover:text-primary focus:text-primary active:text-primary">
         <SelectValue placeholder="Language">{locale.toUpperCase()}</SelectValue>
       </SelectTrigger>
       <SelectContent side="bottom" align="end">

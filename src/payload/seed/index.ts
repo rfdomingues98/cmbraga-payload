@@ -2,14 +2,16 @@ import fs from "fs"
 import path from "path"
 import { Payload } from "payload"
 
+import { alertTypes } from "./alert-types"
+import { alerts } from "./alerts"
 import { bragaDark } from "./braga-dark"
 import { bragaLight } from "./braga-light"
 import { footer, header } from "./globals"
 import { home } from "./home"
+import { homeHero } from "./home-hero"
 import { agenda, apoioAoCidadao, atualidade, cidade, municipio } from "./menus"
 
 const collections = ["pages", "menus"]
-const globals = ["header", "footer"]
 
 export const seedData = async (payload: Payload): Promise<void> => {
   payload.logger.info("Seeding database...")
@@ -61,7 +63,7 @@ export const seedData = async (payload: Payload): Promise<void> => {
 
   payload.logger.info(`— Seeding media...`)
 
-  const [bragaLightLogoDoc, bragaDarkLogoDoc] = await Promise.all([
+  const [bragaLightLogoDoc, bragaDarkLogoDoc, homeHeroDoc] = await Promise.all([
     await payload.create({
       collection: "media",
       filePath: path.resolve(__dirname, "braga-light.png"),
@@ -72,26 +74,45 @@ export const seedData = async (payload: Payload): Promise<void> => {
       filePath: path.resolve(__dirname, "braga-dark.png"),
       data: bragaDark,
     }),
+    await payload.create({
+      collection: "media",
+      filePath: path.resolve(__dirname, "home-hero.png"),
+      data: homeHero,
+    }),
   ])
 
   let bragaLightLogoId = bragaLightLogoDoc.id
   let bragaDarkLogoId = bragaDarkLogoDoc.id
+  let homeHeroId = homeHeroDoc.id
 
   payload.logger.info("- Seeding collections and globals...")
 
+  payload.logger.info("-- Seeding alert types...")
+  const alertTypesDoc = await Promise.all(
+    alertTypes.map(
+      async (alertType) => await payload.create({ collection: "alert-types", data: alertType }),
+    ),
+  )
+  payload.logger.info("-- Seeding alerts...")
+  const alertsDoc = await Promise.all(
+    alerts.map(async (alert, index) => {
+      const data = JSON.stringify(alert).replace(/value: \d/g, `${alertTypesDoc[index].id}`)
+      return await payload.create({ collection: "alerts", data: JSON.parse(data) })
+    }),
+  )
+
   payload.logger.info("-- Seeding homepage...")
-  const homepage = await payload.create({ collection: "pages", data: home })
-  payload.logger.info(`--+ Homepage Id: ${homepage.id} +--`)
+  const homeData = JSON.stringify(home)
+    .replace(/alerts: \[1,\s*2\]/g, `alerts: [${alertsDoc[0].id}, ${alertsDoc[1].id}]`)
+    .replace(/media: \d/g, `${homeHeroId}`)
+  const homepage = await payload.create({ collection: "pages", data: JSON.parse(homeData) })
 
   payload.logger.info("-- Seeding menus...")
-  const cidadeData = JSON.stringify(cidade, null, 2).replace(/-100/g, `${homepage.id}`)
-  const municipioData = JSON.stringify(municipio, null, 2).replace(/-100/g, `${homepage.id}`)
-  const atualidadeData = JSON.stringify(atualidade, null, 2).replace(/-100/g, `${homepage.id}`)
-  const agendaData = JSON.stringify(agenda, null, 2).replace(/-100/g, `${homepage.id}`)
-  const apoioAoCidadaoData = JSON.stringify(apoioAoCidadao, null, 2).replace(
-    /-100/g,
-    `${homepage.id}`,
-  )
+  const cidadeData = JSON.stringify(cidade).replace(/-100/g, `${homepage.id}`)
+  const municipioData = JSON.stringify(municipio).replace(/-100/g, `${homepage.id}`)
+  const atualidadeData = JSON.stringify(atualidade).replace(/-100/g, `${homepage.id}`)
+  const agendaData = JSON.stringify(agenda).replace(/-100/g, `${homepage.id}`)
+  const apoioAoCidadaoData = JSON.stringify(apoioAoCidadao).replace(/-100/g, `${homepage.id}`)
   await Promise.all([
     await payload.create({
       collection: "menus",

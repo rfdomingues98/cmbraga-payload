@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react"
 
-import './index.scss'
+import "./index.scss"
 
-const baseClass = 'rich-text-large-body'
+const baseClass = "rich-text-small-body"
 
-const LargeBodyElement: React.FC<{
+const SmallBodyElement: React.FC<{
   attributes: any
   element: any
   children: React.ReactNode
@@ -13,4 +13,4 @@ const LargeBodyElement: React.FC<{
     <span className={baseClass}>{children}</span>
   </div>
 )
-export default LargeBodyElement
+export default SmallBodyElement

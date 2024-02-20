@@ -87,7 +87,7 @@ export function Footer({ data }: FooterProps) {
           </div>
           <div>
             <CMSLink
-              type={data.legal.type === "reference" ? "reference" : "custom"}
+              type={data.legal.link_type === "reference" ? "reference" : "custom"}
               url={data.legal.url}
               reference={data.legal.reference as any}
               newTab={Boolean(data.legal.newTab)}

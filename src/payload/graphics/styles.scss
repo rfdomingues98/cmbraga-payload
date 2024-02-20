@@ -1,0 +1,68 @@
+@import '~payload/scss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html {
+  &[data-theme=dark] {
+    --theme-elevation-0: rgb(0, 21, 36);
+    --theme-elevation-50: rgb(0, 25, 42);
+    --theme-elevation-100: rgb(0, 41, 71);
+    --theme-elevation-150: rgb(0, 58, 99);
+    --theme-elevation-200: rgb(0, 74, 128);
+    --theme-elevation-250: rgb(0, 91, 156);
+    --theme-elevation-300: rgb(0, 107, 184);
+    --theme-elevation-350: rgb(0, 124, 212);
+    --theme-elevation-400: rgb(0, 140, 241);
+    --theme-elevation-450: rgb(14, 155, 255);
+    --theme-elevation-500: rgb(42, 166, 255);
+    --theme-elevation-550: rgb(71, 178, 255);
+    --theme-elevation-600: rgb(128, 202, 255);
+    --theme-elevation-650: rgb(156, 214, 255);
+    --theme-elevation-700: rgb(184, 225, 255);
+    --theme-elevation-750: rgb(212, 237, 255);
+    --theme-elevation-800: rgb(241, 249, 255);
+    --theme-elevation-850: rgb(255, 255, 255);
+    --theme-elevation-900: rgb(255, 255, 255);
+    --theme-elevation-950: rgb(255, 255, 255);
+    --theme-elevation-1000: rgb(255, 255, 255);
+
+    --theme-bg: #001524;
+  }
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h5 {
+  font-weight: 600;
+}
+
+::selection {
+  background: var(--theme-elevation-250);
+  color: var(--theme-elevation-1000) !important;
+}
+
+::-moz-selection {
+  background: var(--theme-elevation-250);
+  color: var(--theme-elevation-1000) !important;
+}
+
+.btn {
+  &--style-primary {
+    background-color: var(--theme-elevation-300);
+    color: var(--theme-elevation-900);
+  }
+
+  &--style-primary:not(.btn--disabled):hover, .btn--style-primary:not(.btn--disabled):focus-visible {
+
+    background-color: var(--theme-elevation-400);
+  }
+}
+
+.thumbnail-card__thumbnail > :first-child {
+  width: 100px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
