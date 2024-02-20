@@ -107,6 +107,8 @@ export interface Page {
         columns?:
           | {
               size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
+              horizontalAlign?: ('left' | 'center' | 'right') | null;
+              verticalAlign?: ('top' | 'middle' | 'bottom') | null;
               blocks?:
                 | (
                     | {
@@ -366,6 +368,8 @@ export interface Post {
         columns?:
           | {
               size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
+              horizontalAlign?: ('left' | 'center' | 'right') | null;
+              verticalAlign?: ('top' | 'middle' | 'bottom') | null;
               blocks?:
                 | (
                     | {
@@ -522,6 +526,8 @@ export interface Post {
             columns?:
               | {
                   size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
+                  horizontalAlign?: ('left' | 'center' | 'right') | null;
+                  verticalAlign?: ('top' | 'middle' | 'bottom') | null;
                   blocks?:
                     | (
                         | {
@@ -754,6 +760,8 @@ export interface News {
         columns?:
           | {
               size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
+              horizontalAlign?: ('left' | 'center' | 'right') | null;
+              verticalAlign?: ('top' | 'middle' | 'bottom') | null;
               blocks?:
                 | (
                     | {

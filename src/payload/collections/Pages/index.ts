@@ -12,7 +12,7 @@ import { RichTextBlock } from "../../blocks/RichTextBlock"
 import { SocialsBlock } from "../../blocks/Socials"
 import { slugField } from "../../fields/slug"
 import { populatePublishedAt } from "../../hooks/populatePublishedAt"
-import { revalidatePage } from "./hooks/revalidatePage"
+import { formatAppURL, revalidatePage } from "./hooks/revalidatePage"
 
 export const Pages: CollectionConfig = {
   slug: "pages",
@@ -20,9 +20,15 @@ export const Pages: CollectionConfig = {
     useAsTitle: "title",
     defaultColumns: ["title", "slug", "updatedAt"],
     preview: (doc) => {
-      return `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/api/preview?url=${encodeURIComponent(
-        `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/${doc.slug !== "home" ? doc.slug : ""}`,
-      )}&secret=${process.env.PAYLOAD_PUBLIC_DRAFT_SECRET}`
+      return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/api/preview?url=${encodeURIComponent(
+        formatAppURL({
+          doc,
+        }),
+      )}&collection=pages&slug=${doc.slug}&secret=${process.env.PAYLOAD_PUBLIC_DRAFT_SECRET}`
+    },
+    livePreview: {
+      url: ({ data }) =>
+        `${process.env.PAYLOAD_PUBLIC_SITE_URL}${data.slug !== "home" ? `/${data.slug}` : ""}`,
     },
   },
   hooks: {

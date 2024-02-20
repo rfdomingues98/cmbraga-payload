@@ -1,6 +1,6 @@
 "use client"
 
-import { type Alerts as AlertsProps } from "@/lib/validations/pages"
+import { Alert as TAlert } from "@/payload/payload-types"
 import { Swiper, SwiperSlide, type SwiperClass } from "swiper/react"
 
 import { Alert } from "./alert-item"
@@ -11,12 +11,12 @@ import "swiper/css/navigation"
 
 import { useState } from "react"
 import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react"
-import { EffectFade, Navigation } from "swiper/modules"
+import { Autoplay, EffectFade, Navigation } from "swiper/modules"
 
 import { Button, type ButtonProps } from "./ui/button"
 
 interface Props {
-  alerts: AlertsProps["alerts"]
+  alerts: TAlert[]
   slidesLength: number
   prevAriaLabel: string
   nextAriaLabel: string
@@ -30,35 +30,41 @@ const buttonConfig: ButtonProps = {
 }
 
 const SLIDES_PER_VIEW = 1
+const AUTOPLAY_DELAY = 8000
 
-export function AlertsCarousel({
-  alerts,
-  slidesLength,
-  prevAriaLabel,
-  nextAriaLabel,
-}: Props) {
+export function AlertsCarousel({ alerts, slidesLength, prevAriaLabel, nextAriaLabel }: Props) {
   const [swiperRef, setSwiperRef] = useState<SwiperClass | null>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-
+  const [timerLeft, setTimeLeft] = useState(0)
   return (
     <Swiper
       onSwiper={setSwiperRef}
-      modules={[Navigation, EffectFade]}
+      modules={[Navigation, EffectFade, Autoplay]}
       effect="fade"
       style={{ height: "100%", position: "relative" }}
-      onRealIndexChange={(e) => setActiveIndex(e.activeIndex)}
       allowTouchMove={false}
+      autoplay={{
+        delay: AUTOPLAY_DELAY,
+        disableOnInteraction: false,
+      }}
+      onAutoplayTimeLeft={(s, time) => {
+        setTimeLeft(time)
+      }}
+      loop
     >
-      {alerts.data.map(({ attributes, id }) => (
+      {alerts.map(({ id, ...rest }) => (
         <SwiperSlide key={id}>
-          <Alert {...attributes} />
+          <Alert
+            alertsLength={alerts.length}
+            timeLeft={timerLeft}
+            duration={AUTOPLAY_DELAY}
+            {...rest}
+          />
         </SwiperSlide>
       ))}
       {slidesLength > SLIDES_PER_VIEW && (
         <div className="absolute bottom-2 right-4 z-10 gap-1 lg:inline-flex">
           <Button
             {...buttonConfig}
-            disabled={activeIndex === 0}
             onClick={() => swiperRef?.slidePrev()}
             aria-label={prevAriaLabel}
           >
@@ -66,7 +72,6 @@ export function AlertsCarousel({
           </Button>
           <Button
             {...buttonConfig}
-            disabled={activeIndex === slidesLength - 1}
             onClick={() => swiperRef?.slideNext()}
             aria-label={nextAriaLabel}
           >

@@ -34,6 +34,18 @@ dotenv.config({
 
 export default buildConfig({
   admin: {
+    livePreview: {
+      url: process.env.NEXT_PUBLIC_ADMIN_LIVE_PREVIEW_URL,
+      collections: ["pages", "news"],
+      breakpoints: [
+        {
+          label: "Mobile",
+          name: "mobile",
+          width: 375,
+          height: 667,
+        },
+      ],
+    },
     css: path.resolve(__dirname, "graphics/styles.scss"),
     user: Users.slug,
     bundler: webpackBundler(),

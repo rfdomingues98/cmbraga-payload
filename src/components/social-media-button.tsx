@@ -1,47 +1,37 @@
 "use client"
 
-import { type Locale } from "@/config/base"
-import { type LinkType } from "@/lib/validations/shared"
 import { Link } from "@/navigation"
-import { useLocale } from "next-intl"
+import { Page } from "@/payload/payload-types"
+import { toPascalCase } from "@/utils/toPascalCase"
+import { icons, type LucideProps } from "lucide-react"
 
-import { Icons } from "./icons"
+import Icon from "./icon"
 import { Button } from "./ui/button"
 
+interface IconProps extends LucideProps {
+  name: keyof typeof icons
+}
+
 interface Props {
-  socials: string
-  link: LinkType
+  social: Extract<Page["layout"][0], { blockType: "socials" }>["socials"][number]
 }
 
 const socialMediaIcon = (social: string) => {
-  switch (social) {
-    case "facebook":
-      return <Icons.facebook className="h-3.5 w-3.5 " />
-    case "instagram":
-      return <Icons.instagram className="h-3.5 w-3.5" />
-    case "twitter":
-      return <Icons.twitter className="h-2.5 w-2.5" />
-    case "youtube":
-      return <Icons.youtube className="h-3.5 w-3.5" />
-    default:
-      return null
-  }
+  const name = toPascalCase(social.slice(2)) as IconProps["name"]
+  return <Icon name={name} className="h-3.5 w-3.5" />
 }
 
-export function SocialMediaButton({ socials, link }: Props) {
-  const locale = useLocale() as Locale
-
+export function SocialMediaButton({ social: { socialMedia, id } }: Props) {
   return (
     <Button
       asChild
       variant="outline"
       size="icon"
-      id={`social_media_${socials}`}
-      aria-label={link.aria_label}
+      id={`social_media_${id}`}
       className="h-8 w-8 rounded-full border-primary-foreground transition-all duration-300 ease-in-out hover:border-primary hover:bg-primary hover:text-white dark:border-white dark:hover:text-background"
     >
-      <Link href={link.url} locale={locale} target="_blank">
-        {socialMediaIcon(socials)}
+      <Link href={socialMedia.socialLink.url} target={socialMedia.socialLink.newTab && "_blank"}>
+        {socialMediaIcon(socialMedia.socialIcon)}
       </Link>
     </Button>
   )

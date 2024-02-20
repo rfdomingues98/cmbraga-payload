@@ -32,6 +32,55 @@ const columnFields: Field[] = [
     ],
   },
   {
+    type: "row",
+    fields: [
+      {
+        name: "horizontalAlign",
+        type: "select",
+        admin: {
+          width: "50%",
+        },
+        defaultValue: "left",
+        options: [
+          {
+            value: "left",
+            label: "Left",
+          },
+          {
+            value: "center",
+            label: "Center",
+          },
+          {
+            value: "right",
+            label: "Right",
+          },
+        ],
+      },
+      {
+        name: "verticalAlign",
+        type: "select",
+        admin: {
+          width: "50%",
+        },
+        defaultValue: "top",
+        options: [
+          {
+            value: "top",
+            label: "Top",
+          },
+          {
+            value: "middle",
+            label: "Middle",
+          },
+          {
+            value: "bottom",
+            label: "Bottom",
+          },
+        ],
+      },
+    ],
+  },
+  {
     type: "blocks",
     name: "blocks",
     blocks: [RichTextBlock, MediaBlock, SocialsBlock, AlertCarouselBlock, CallToAction],

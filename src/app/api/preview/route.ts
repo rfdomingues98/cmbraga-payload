@@ -1,7 +1,5 @@
-import { draftMode } from 'next/headers'
-import { redirect } from 'next/navigation'
-
-import { payloadToken } from '../../_api/token'
+import { draftMode } from "next/headers"
+import { redirect } from "next/navigation"
 
 export async function GET(
   req: Request & {
@@ -12,23 +10,23 @@ export async function GET(
     }
   },
 ): Promise<Response> {
-  const token = req.cookies.get(payloadToken)?.value
+  const payloadToken = req.cookies.get("payload-token")?.value
   const { searchParams } = new URL(req.url)
-  const url = searchParams.get('url')
-  const secret = searchParams.get('secret')
+  const url = searchParams.get("url")
+  const secret = searchParams.get("secret")
 
   if (!url) {
-    return new Response('No URL provided', { status: 404 })
+    return new Response("No URL provided", { status: 404 })
   }
 
-  if (!token) {
-    new Response('You are not allowed to preview this page', { status: 403 })
+  if (!payloadToken) {
+    new Response("You are not allowed to preview this page", { status: 403 })
   }
 
   // validate the Payload token
-  const userReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
+  const userReq = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/me`, {
     headers: {
-      Authorization: `JWT ${token}`,
+      Authorization: `JWT ${payloadToken}`,
     },
   })
 
@@ -36,11 +34,11 @@ export async function GET(
 
   if (!userReq.ok || !userRes?.user) {
     draftMode().disable()
-    return new Response('You are not allowed to preview this page', { status: 403 })
+    return new Response("You are not allowed to preview this page", { status: 403 })
   }
 
   if (secret !== process.env.NEXT_PRIVATE_DRAFT_SECRET) {
-    return new Response('Invalid token', { status: 401 })
+    return new Response("Invalid token", { status: 401 })
   }
 
   draftMode().enable()

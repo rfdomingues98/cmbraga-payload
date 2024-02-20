@@ -1,13 +1,11 @@
-import React from "react"
 import { Metadata } from "next"
 import { draftMode } from "next/headers"
 import { notFound } from "next/navigation"
+import { getPayloadClient } from "@/payload/getPayload"
+import type { Page } from "@/payload/payload-types"
 
-import { Blocks } from "../../../_components/Blocks"
-import { Hero } from "../../../_components/Hero"
 import { generateMeta } from "../../../_utilities/generateMeta"
-import { getPayloadClient } from "../../../../payload/getPayload"
-import type { Page } from "../../../../payload/payload-types"
+import { PageTemplate } from "./page.client"
 
 export default async function Page({ params: { slug = "home" } }) {
   const { isEnabled: isDraftMode } = draftMode()
@@ -27,18 +25,7 @@ export default async function Page({ params: { slug = "home" } }) {
     return notFound()
   }
 
-  const { layout } = page
-  const hero = undefined
-
-  return (
-    <React.Fragment>
-      <Hero {...hero} />
-      <Blocks
-        blocks={layout}
-        disableTopPadding={!hero || hero?.type === "none" || hero?.type === "lowImpact"}
-      />
-    </React.Fragment>
-  )
+  return <PageTemplate page={page} />
 }
 
 export async function generateStaticParams() {
