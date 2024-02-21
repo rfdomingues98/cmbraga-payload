@@ -11,6 +11,8 @@ export const home: Omit<Page, "id" | "createdAt" | "updatedAt"> = {
       columns: [
         {
           size: "half",
+          horizontalAlign: "left",
+          verticalAlign: "top",
           blocks: [
             {
               richText: [
@@ -40,6 +42,36 @@ export const home: Omit<Page, "id" | "createdAt" | "updatedAt"> = {
                     socialIcon: "LuLinkedin",
                   },
                 },
+                {
+                  socialMedia: {
+                    socialLink: {
+                      link_type: "custom",
+                      newTab: true,
+                      url: "https://youtube.com",
+                    },
+                    socialIcon: "LuYoutube",
+                  },
+                },
+                {
+                  socialMedia: {
+                    socialLink: {
+                      link_type: "custom",
+                      newTab: true,
+                      url: "https://facebook.com",
+                    },
+                    socialIcon: "LuFacebook",
+                  },
+                },
+                {
+                  socialMedia: {
+                    socialLink: {
+                      link_type: "custom",
+                      newTab: true,
+                      url: "https://twitter.com",
+                    },
+                    socialIcon: "LuTwitter",
+                  },
+                },
               ],
               blockType: "socials",
             },
@@ -47,6 +79,8 @@ export const home: Omit<Page, "id" | "createdAt" | "updatedAt"> = {
         },
         {
           size: "half",
+          horizontalAlign: "right",
+          verticalAlign: "top",
           blocks: [
             {
               blockName: "Alertas",
@@ -60,23 +94,9 @@ export const home: Omit<Page, "id" | "createdAt" | "updatedAt"> = {
     },
     {
       type: "highImpact",
-      richText: [
-        {
-          type: "h2",
-          children: [
-            {
-              text: "Braga autêntica",
-            },
-          ],
-        },
-        {
-          children: [
-            {
-              text: "A Câmara Municipal de Braga orgulha-se da sua contribuição para",
-            },
-          ],
-        },
-      ],
+      title: "Braga Autêntica",
+      description:
+        "A Câmara Municipal de Braga orgulha-se da sua contribuição para teste teste teste teste",
       blockName: "Hero",
       blockType: "hero",
       link: {

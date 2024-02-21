@@ -21,14 +21,12 @@ export function NavContainer({ data }: NavContainerProps) {
         "sticky top-0 z-40 border-b transition-[border] duration-300 dark:text-foreground",
         scroll.y === 0 && "border-b-transparent bg-background",
         scroll.y !== 0 &&
-          "border-b-gray-400/20 bg-background/90 backdrop-blur-sm dark:border-b-primary/20",
+          "border-b-gray-400/20 bg-background/95 backdrop-blur-sm dark:border-b-primary/20",
       )}
       data-height={height}
       data-width={width}
     >
-      <div className=" flex h-20 items-center justify-between px-[2.5rem] py-4">
-        <MainNav data={data} />
-      </div>
+      <MainNav data={data} />
     </header>
   )
 }

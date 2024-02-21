@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils"
 import "@/styles/globals.css"
 
 const fontSans = Poppins({
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-sans",
 })
@@ -36,7 +36,7 @@ export default async function RootLayout({
       </head>
       <body
         className={cn(
-          "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased dark:bg-background dark:text-foreground",
+          "flex min-h-screen flex-col overflow-x-hidden bg-background font-sans text-foreground antialiased dark:bg-background dark:text-foreground",
           fontSans.variable,
           fontHeading.variable,
         )}

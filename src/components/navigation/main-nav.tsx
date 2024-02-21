@@ -4,7 +4,7 @@ import { Header } from "@/payload/payload-types"
 
 import { LanguageSelect } from "../language-selector"
 import LogoItem from "../logo-item"
-import { ModeSwitch } from "../mode-switch"
+import { ModeToggle } from "../mode-switch"
 import { NavMainMenus } from "./nav-main-menus"
 
 type NavbarProps = {
@@ -13,15 +13,16 @@ type NavbarProps = {
 
 export function MainNav({ data }: NavbarProps) {
   return (
-    <div className="flex w-full justify-between gap-6 md:gap-10">
-      <div className="hidden items-center space-x-2 md:flex">
+    <div className="container mx-auto flex h-20 justify-between py-4">
+      <div className="hidden items-center md:flex md:gap-16">
         <LogoItem logo={data.logo} width={96} height={53} />
+        <NavMainMenus menus={data.menus} />
       </div>
       <div id="right" className="flex items-center md:gap-16">
-        <NavMainMenus menus={data.menus} />
         <div className="flex items-center md:gap-10">
           <LanguageSelect />
-          <ModeSwitch />
+          {/* <ModeSwitch /> */}
+          <ModeToggle />
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ export function Footer({ data }: FooterProps) {
   const rightBlock = data.block2
 
   return (
-    <div className="flex min-h-[350px] w-full flex-col justify-between">
+    <div className="container mx-auto flex min-h-[350px] flex-col justify-between">
       <div className="flex w-full justify-between">
         <div className="flex gap-14">
           {leftBlock && (

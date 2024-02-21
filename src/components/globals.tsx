@@ -18,13 +18,14 @@ export const Globals = async ({ children }: PropsWithChildren) => {
 
   const footer = (await payload.findGlobal({
     slug: "footer",
-    depth: 1,
-  })) as Footer
+    locale,
+    fallbackLocale: "pt",
+  })) as unknown as Footer
 
   return (
     <>
       <NavContainer data={header} />
-      <main className="flex flex-1 flex-col">{children}</main>
+      <main className="container mx-auto flex flex-1 flex-col">{children}</main>
       <FooterContainer data={footer} />
     </>
   )

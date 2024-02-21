@@ -11,9 +11,5 @@ export const PageTemplate: React.FC<{ page: Page | null | undefined }> = ({ page
     initialData: page,
   })
 
-  return (
-    <main className="px-[2vw] py-20 lg:px-[4vw]">
-      <Blocks blocks={page.layout} />
-    </main>
-  )
+  return <Blocks blocks={page.layout} />
 }

@@ -188,10 +188,9 @@ export interface Page {
         blockType: 'content';
       }
     | {
-        type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-        richText: {
-          [k: string]: unknown;
-        }[];
+        type: 'highImpact' | 'lowImpact';
+        title?: string | null;
+        description?: string | null;
         link?: {
           link_type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;

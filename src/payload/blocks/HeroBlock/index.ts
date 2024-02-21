@@ -1,10 +1,6 @@
 import type { Block } from "payload/types"
 
 import link from "../../fields/link"
-import richText from "../../fields/richText"
-
-const linkField = link()
-/* console.dir(linkField, { depth: null }) */
 
 export const HeroBlock: Block = {
   slug: "hero",
@@ -18,19 +14,11 @@ export const HeroBlock: Block = {
       name: "type",
       label: "Type",
       required: true,
-      defaultValue: "lowImpact",
+      defaultValue: "highImpact",
       options: [
-        {
-          label: "None",
-          value: "none",
-        },
         {
           label: "High Impact",
           value: "highImpact",
-        },
-        {
-          label: "Medium Impact",
-          value: "mediumImpact",
         },
         {
           label: "Low Impact",
@@ -38,12 +26,8 @@ export const HeroBlock: Block = {
         },
       ],
     },
-    richText({
-      admin: {
-        elements: ["h1", "link"],
-        leaves: [],
-      },
-    }),
+    { name: "title", type: "text" },
+    { name: "description", type: "text" },
     link({ overrides: { name: "link" } }),
     {
       name: "media",

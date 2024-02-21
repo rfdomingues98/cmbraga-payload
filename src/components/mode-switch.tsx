@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Switch } from "@/components/ui/switch"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
@@ -29,5 +30,40 @@ export const ModeSwitch = () => {
         />
       }
     />
+  )
+}
+
+export const ModeToggle = () => {
+  const { resolvedTheme, setTheme } = useTheme()
+  const [value, setValue] = useState("light")
+  useEffect(() => {
+    setValue(resolvedTheme)
+  }, [resolvedTheme])
+
+  return (
+    <ToggleGroup
+      type="single"
+      value={value}
+      onValueChange={(value) => {
+        if (value) setTheme(value)
+      }}
+    >
+      <ToggleGroupItem
+        value="light"
+        size="sm"
+        className="hover:bg-darker-background data-[state=on]:bg-darker-background data-[state=off]:text-primary/50"
+        aria-label="Toggle light theme"
+      >
+        <Sun size={16} strokeWidth={2} />
+      </ToggleGroupItem>
+      <ToggleGroupItem
+        value="dark"
+        size="sm"
+        className="hover:bg-darker-background data-[state=on]:bg-darker-background data-[state=off]:text-primary/50"
+        aria-label="Toggle dark theme"
+      >
+        <Moon size={16} strokeWidth={2} />
+      </ToggleGroupItem>
+    </ToggleGroup>
   )
 }

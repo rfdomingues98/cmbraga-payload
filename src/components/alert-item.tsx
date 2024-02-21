@@ -55,7 +55,7 @@ export function Alert({ title, description, link, alertsLength, timeLeft, durati
               <div className="text-base font-medium">{alertType.title}</div>
             </div>
             {link && (
-              <ArrowUpRight className="text-primary/60 ease-in-out group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent-foreground group-hover:duration-500" />
+              <ArrowUpRight className="text-primary/60 transition-all ease-in-out group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent-foreground" />
             )}
           </div>
           <div className="flex max-w-[320px] flex-col pl-3">

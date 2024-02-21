@@ -1,6 +1,5 @@
 import Image from "next/image"
 import { CMSLink } from "@/components/cms-link"
-import RichText from "@/components/rich-text"
 import { Button } from "@/components/ui/button"
 import { Locale } from "@/config"
 import { Media } from "@/payload/payload-types"
@@ -28,13 +27,10 @@ export const HighImpactHero: React.FC<HeroBlockProps> = (props) => {
       </div>
       <div className="absolute bottom-6 left-6 z-20 flex flex-col lg:bottom-16 lg:left-16">
         <div className="flex flex-col gap-3 pb-6">
-          <RichText content={props.richText} />
-          {/* <h2 className="line-clamp-3 max-w-[400px] text-ellipsis text-3xl font-semibold leading-tight text-white lg:text-[56px]">
-            {firstSection.highlight.title}
+          <h2 className="line-clamp-3 max-w-[400px] text-ellipsis text-3xl font-semibold leading-tight text-white lg:text-[56px]">
+            {props.title}
           </h2>
-          <p className="line-clamp-2 max-w-[300px] text-ellipsis text-white">
-            {firstSection.highlight.description}
-          </p> */}
+          <p className="line-clamp-2 max-w-[300px] text-ellipsis text-white">{props.description}</p>
         </div>
 
         <Button

@@ -10,13 +10,6 @@ export default {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -81,14 +74,6 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-      },
-      backgroundImage: {
-        "info-alert":
-          "linear-gradient(270deg, hsl(var(--info-alert-from)) 0%, hsl(var(--info-alert-to)) 100%)",
-        "warning-alert":
-          "linear-gradient(270deg, hsl(var(--warning-alert-from)) 0%, hsl(var(--warning-alert-to)) 100%)",
-        "grey-background":
-          "linear-gradient(360deg, hsl(var(--grey-bg-from)) -14.56%, hsl(var(--grey-bg-to)) 55.82%)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
