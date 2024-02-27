@@ -9,6 +9,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import { Separator } from "@/components/ui/separator"
@@ -28,45 +29,62 @@ export function NavMainMenus({ menus }: NavigationMenuProps) {
     <>
       <NavigationMenu>
         <NavigationMenuList>
-          {menus.map(({ menu }, index) => (
-            <NavigationMenuItem key={index} value={(menu.value as Menu).title}>
-              <NavigationMenuTrigger
-                chevronClassName="h-5 w-5"
-                className={
-                  "h-12 space-x-2 bg-transparent px-6 py-3 text-base font-normal text-primary hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-link"
-                }
-              >
-                <span>{(menu.value as Menu).title}</span>
-              </NavigationMenuTrigger>
-              <NavigationMenuContent className="flex w-screen py-6 dark:bg-background md:w-screen">
-                <div className="container mx-auto flex">
-                  <div className="flex basis-1/5">
-                    <div className="flex max-w-[225px] basis-2/3 flex-col gap-y-4 py-6">
-                      <div className="flex items-center justify-between">
-                        <h3 className="font-medium text-link">{(menu.value as Menu).title}</h3>
-                        <ChevronRight className="h-4 w-4" />
+          {menus?.map(({ menu }, index) =>
+            (menu.value as Menu).links?.length > 0 ? (
+              <NavigationMenuItem key={index} value={(menu.value as Menu).title}>
+                <NavigationMenuTrigger
+                  chevronClassName="h-5 w-5"
+                  className={
+                    "h-12 space-x-2 bg-transparent px-6 py-3 text-base font-normal text-primary hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-link"
+                  }
+                >
+                  <span>{(menu.value as Menu).title}</span>
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="flex w-screen py-6 dark:bg-background md:w-screen">
+                  <div className="container mx-auto flex">
+                    <div className="flex basis-1/5">
+                      <div className="flex max-w-[225px] basis-2/3 flex-col gap-y-4 py-6">
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-medium text-link">{(menu.value as Menu).title}</h3>
+                          <ChevronRight className="h-4 w-4" />
+                        </div>
+                        <RichText content={(menu.value as Menu).description} />
                       </div>
-                      <RichText content={(menu.value as Menu).description} />
+                      <div className="basis-1/3">
+                        <Separator orientation="vertical" className="mx-auto dark:bg-card" />
+                      </div>
                     </div>
-                    <div className="basis-1/3">
-                      <Separator orientation="vertical" className="mx-auto dark:bg-card" />
-                    </div>
+                    <ul className="grid w-full basis-4/5 grid-cols-4 gap-x-[60px] gap-y-4 md:min-w-[250px]">
+                      {(menu.value as Menu).links.map(({ id, linkGroup: { link } }) => (
+                        <ListItem
+                          key={`navbar.other_sites.links.${id}`}
+                          link={link}
+                          title={link.label}
+                          aria-label={link.label}
+                          icon={{ name: "Users" } as IconProps}
+                        />
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="grid w-full basis-4/5 grid-cols-4 gap-x-[60px] gap-y-4 md:min-w-[250px]">
-                    {(menu.value as Menu).links.map(({ id, linkGroup: { link } }) => (
-                      <ListItem
-                        key={`navbar.other_sites.links.${id}`}
-                        link={link}
-                        title={link.label}
-                        aria-label={link.label}
-                        icon={{ name: "Users" } as IconProps}
-                      />
-                    ))}
-                  </ul>
-                </div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          ))}
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            ) : (
+              <NavigationMenuItem key={`navbar.link.${(menu.value as Menu).id}`}>
+                <NavigationMenuLink
+                  asChild
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    cn(
+                      "h-12 space-x-2 bg-transparent px-6 py-3 text-base font-normal text-primary/50 hover:bg-transparent focus:bg-transparent",
+                    ),
+                  )}
+                  /* aria-label={menu.aria_label} */
+                >
+                  <Link href={"#"}>{(menu.value as Menu).title}</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ),
+          )}
         </NavigationMenuList>
         <NavigationMenuViewport className="-top-1.5 rounded-none border-x-0 border-b-0 border-t shadow-lg" />
       </NavigationMenu>

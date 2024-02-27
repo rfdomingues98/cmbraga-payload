@@ -9,9 +9,10 @@ import { NavMainMenus } from "./nav-main-menus"
 
 type NavbarProps = {
   data: Header
+  showModeToggle?: boolean
 }
 
-export function MainNav({ data }: NavbarProps) {
+export function MainNav({ data, showModeToggle }: NavbarProps) {
   return (
     <div className="container mx-auto flex h-20 justify-between py-4">
       <div className="hidden items-center md:flex md:gap-16">
@@ -21,8 +22,7 @@ export function MainNav({ data }: NavbarProps) {
       <div id="right" className="flex items-center md:gap-16">
         <div className="flex items-center md:gap-10">
           <LanguageSelect />
-          {/* <ModeSwitch /> */}
-          <ModeToggle />
+          {showModeToggle && <ModeToggle />}
         </div>
       </div>
     </div>

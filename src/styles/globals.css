@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Canopee';
+  src: local('Canopee'), url(../assets/fonts/Canopee-Regular.otf) format('opentype');
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -81,6 +86,7 @@
 @layer base {
   * {
     @apply border-border;
+    @apply overscroll-y-none;
   }
 
   body {

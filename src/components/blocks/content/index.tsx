@@ -14,31 +14,33 @@ export const ContentBlock: React.FC<
   const { columns } = props
 
   return (
-    <section className={"p-2"}>
-      <div className={cn("grid grid-cols-12 gap-2")}>
-        {columns &&
-          columns.length > 0 &&
-          columns.map((col, index) => {
-            const { size, horizontalAlign, verticalAlign, blocks } = col
+    <section className={cn("relative flex flex-col gap-5 lg:flex-row lg:gap-8 xl:gap-20")}>
+      {columns &&
+        columns.length > 0 &&
+        columns.map((col, index) => {
+          const { size, horizontalAlign, verticalAlign, blocks } = col
 
-            return (
-              <div
-                key={index}
-                className={cn(
-                  "col-end-[span_8]",
-                  size === "oneThird" && "col-end-[span_4]",
-                  size === "half" && "col-end-[span_6]",
-                  size === "twoThirds" && "col-end-[span_8]",
-                  size === "full" && "col-end-[span_12]",
-                  horizontalAlign === "center" && "grid justify-items-center",
-                  horizontalAlign === "right" && "grid justify-items-end",
-                )}
-              >
-                <Blocks blocks={blocks} />
-              </div>
-            )
-          })}
-      </div>
+          return (
+            <div
+              key={index}
+              className={cn(
+                "flex flex-col gap-6",
+                size === "oneThird" && "basis-4/12",
+                size === "half" && "basis-6/12",
+                size === "twoThirds" && "basis-8/12",
+                size === "full" && "basis-full",
+                horizontalAlign === "left" && "items-start",
+                horizontalAlign === "center" && "items-center",
+                horizontalAlign === "right" && "items-end",
+                verticalAlign === "top" && "justify-start",
+                verticalAlign === "middle" && "justify-center",
+                verticalAlign === "bottom" && "justify-end",
+              )}
+            >
+              <Blocks blocks={blocks} />
+            </div>
+          )
+        })}
     </section>
   )
 }

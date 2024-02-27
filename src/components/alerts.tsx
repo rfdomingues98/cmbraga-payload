@@ -34,7 +34,7 @@ export function Alerts({ alerts }: Props) {
           </Marquee>
         </div>
       ) : (
-        <div className="min-w-0 max-w-[600px]">
+        <div className="h-full min-w-0 max-w-[600px]">
           <AlertsCarousel
             alerts={alerts}
             slidesLength={alerts.length}

@@ -2,6 +2,7 @@ import path from "path"
 import { webpackBundler } from "@payloadcms/bundler-webpack"
 import { postgresAdapter } from "@payloadcms/db-postgres"
 import { payloadCloud } from "@payloadcms/plugin-cloud"
+import formBuilder from "@payloadcms/plugin-form-builder"
 import nestedDocs from "@payloadcms/plugin-nested-docs"
 import redirects from "@payloadcms/plugin-redirects"
 import seo from "@payloadcms/plugin-seo"
@@ -106,6 +107,7 @@ export default buildConfig({
       generateTitle,
       uploadsCollection: "media",
     }),
+    formBuilder({}),
     payloadCloud(),
   ],
 })

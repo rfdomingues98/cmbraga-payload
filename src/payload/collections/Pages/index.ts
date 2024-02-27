@@ -9,6 +9,7 @@ import { Content } from "../../blocks/Content"
 import { HeroBlock } from "../../blocks/HeroBlock"
 import { MediaBlock } from "../../blocks/MediaBlock"
 import { RichTextBlock } from "../../blocks/RichTextBlock"
+import { SearchBlock } from "../../blocks/Search"
 import { SocialsBlock } from "../../blocks/Socials"
 import { slugField } from "../../fields/slug"
 import { populatePublishedAt } from "../../hooks/populatePublishedAt"
@@ -77,6 +78,7 @@ export const Pages: CollectionConfig = {
                 HeroBlock,
                 MediaBlock,
                 RichTextBlock,
+                SearchBlock,
                 SocialsBlock,
               ],
             },

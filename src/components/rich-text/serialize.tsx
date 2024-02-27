@@ -61,7 +61,7 @@ const serialize = (children?: Children): React.ReactNode[] =>
       case "h1":
         return (
           <h1
-            className="text-5xl font-bold leading-none tracking-normal text-primary lg:text-[64px]"
+            className="text-5xl font-semibold leading-none tracking-normal text-primary lg:text-[64px]"
             key={i}
           >
             {serialize(node?.children)}

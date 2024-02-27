@@ -1,5 +1,4 @@
 import React, { Fragment } from "react"
-import { cn } from "@/lib/utils"
 import { Page } from "@/payload/payload-types"
 import { toKebabCase } from "@/utils/toKebabCase"
 
@@ -8,6 +7,7 @@ import { ContentBlock } from "./content"
 import { HeroBlock } from "./hero"
 import { MediaBlock } from "./media"
 import { RichTextBlock } from "./rich-text"
+import { SearchBlock } from "./search-block"
 import { SocialMediaBlock } from "./social-media"
 
 const blockComponents = {
@@ -17,6 +17,7 @@ const blockComponents = {
   richTextBlock: RichTextBlock,
   socials: SocialMediaBlock,
   alertCarousel: AlertsCarousel,
+  search: SearchBlock,
 }
 
 export const Blocks: React.FC<{
@@ -38,17 +39,7 @@ export const Blocks: React.FC<{
 
             const useDarkerBackground = "darkerBackground" in block ? block.darkerBackground : false
             if (Block) {
-              return (
-                <div
-                  key={index}
-                  className={cn(
-                    "bg-background py-3",
-                    useDarkerBackground && "bg-darker-background",
-                  )}
-                >
-                  <Block id={toKebabCase(blockName)} {...block} />
-                </div>
-              )
+              return <Block key={index} id={toKebabCase(blockName)} {...block} />
             }
           }
           return null

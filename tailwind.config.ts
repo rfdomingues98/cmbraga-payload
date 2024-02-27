@@ -77,11 +77,16 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        canopee: ["Canopee", "sans-serif"],
       },
       boxShadow: {
         base: "0px 4px 12px 2px hsl(var(--shadow))",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("./tailwind-plugins/radial-gradient"),
+    require("./tailwind-plugins/mask-image"),
+  ],
 } satisfies Config

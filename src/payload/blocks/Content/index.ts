@@ -5,6 +5,7 @@ import { AlertCarouselBlock } from "../AlertCarousel"
 import { CallToAction } from "../CallToAction"
 import { MediaBlock } from "../MediaBlock"
 import { RichTextBlock } from "../RichTextBlock"
+import { SearchBlock } from "../Search"
 import { SocialsBlock } from "../Socials"
 
 const columnFields: Field[] = [
@@ -83,12 +84,23 @@ const columnFields: Field[] = [
   {
     type: "blocks",
     name: "blocks",
-    blocks: [RichTextBlock, MediaBlock, SocialsBlock, AlertCarouselBlock, CallToAction],
+    blocks: [
+      RichTextBlock,
+      MediaBlock,
+      SocialsBlock,
+      SearchBlock,
+      AlertCarouselBlock,
+      CallToAction,
+    ],
   },
 ]
 
 export const Content: Block = {
   slug: "content",
+  labels: {
+    singular: "Content Row",
+    plural: "Content Rows",
+  },
   fields: [
     darkerBackground,
     {

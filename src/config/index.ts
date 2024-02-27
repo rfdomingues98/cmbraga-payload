@@ -1,7 +1,7 @@
 export const i18n = {
   defaultLocale: "pt",
   locales: ["pt", "en", "es"] as const,
-  localePrefix: "as-needed",
+  localePrefix: "always",
 } as const
 
 export const mappedLocales = {

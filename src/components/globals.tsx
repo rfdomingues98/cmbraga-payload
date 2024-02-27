@@ -25,7 +25,7 @@ export const Globals = async ({ children }: PropsWithChildren) => {
   return (
     <>
       <NavContainer data={header} />
-      <main className="container mx-auto flex flex-1 flex-col">{children}</main>
+      <main className="container mx-auto flex flex-1 flex-col py-20">{children}</main>
       <FooterContainer data={footer} />
     </>
   )
