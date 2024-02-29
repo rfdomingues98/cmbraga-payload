@@ -42,13 +42,13 @@ export default function Page() {
           style={{ width: "100%", height: "auto" }}
           className="absolute min-h-screen max-w-full opacity-40 grayscale gradient-mask-b-0"
         />
-        <div className="z-1 container relative mx-auto flex w-full flex-col items-end justify-between px-[72px] md:flex-row">
+        <div className="z-1 container relative mx-auto flex w-full flex-col items-end justify-between md:flex-row">
           <Gradients />
           <h1 className="z-10 w-[850px] cursor-default font-canopee text-[240px] leading-[240px] text-white subpixel-antialiased mix-blend-overlay">
             Agenda de Braga 2024
           </h1>
           <div className="relative flex max-h-48 overflow-hidden">
-            <VerticalTicker duration={2000} easing={"linear"} delay={0} reverse={true}>
+            <VerticalTicker duration={3500} easing={"linear"} delay={0} reverse={true}>
               <ArrowSvg />
             </VerticalTicker>
             <div className="relative z-10 mb-2 flex w-full max-w-[170px] flex-col gap-6 self-end border-dashed border-white px-5 py-3">

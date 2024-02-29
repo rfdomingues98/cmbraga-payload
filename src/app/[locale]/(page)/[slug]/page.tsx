@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import { draftMode } from "next/headers"
 import { notFound } from "next/navigation"
-import { Globals } from "@/components/globals"
 import { getPayloadClient } from "@/payload/getPayload"
 import type { Page } from "@/payload/payload-types"
 import { generateMeta } from "@/utils/generateMeta"
@@ -26,11 +25,7 @@ export default async function Page({ params: { slug = "home" } }) {
     return notFound()
   }
 
-  return (
-    <Globals>
-      <PageTemplate page={page} />
-    </Globals>
-  )
+  return <PageTemplate page={page} />
 }
 
 export async function generateStaticParams() {
