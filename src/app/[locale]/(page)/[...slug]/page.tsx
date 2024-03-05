@@ -10,6 +10,8 @@ import { unstable_setRequestLocale } from "next-intl/server"
 import { fetchPage } from "./_actions"
 import { PageTemplate } from "./page.client"
 
+export const dynamic = "force-dynamic"
+
 export default async function Page({ params: { slug, locale } }) {
   unstable_setRequestLocale(locale)
   const { isEnabled: isDraftMode } = draftMode()

@@ -2,10 +2,10 @@ import React from "react"
 import { Metadata } from "next"
 import { Poppins } from "next/font/google"
 import localFont from "next/font/local"
-import { mergeOpenGraph } from "@/app/_utilities/mergeOpenGraph"
 import { Globals } from "@/components/globals"
 import { Providers } from "@/components/providers"
 import { cn } from "@/lib/utils"
+import { mergeOpenGraph } from "@/utils/mergeOpenGraph"
 
 import "@/styles/globals.css"
 
