@@ -1,0 +1,10 @@
+.env
+docker-compose.yml
+Dockerfile
+README.md
+node_modules
+media
+dist
+build
+.next
+.pipelines

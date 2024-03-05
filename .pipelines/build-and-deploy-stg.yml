@@ -1,0 +1,46 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  - main
+
+resources:
+  - repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: "dff26f9c-bfd3-4699-8f8c-cfe4796667c5"
+  imageRepository: "webpayload"
+  containerRegistry: "cmbraga.azurecr.io"
+  dockerfilePath: "$(Build.SourcesDirectory)/Dockerfile"
+  tag: "$(Build.BuildId)"
+
+  # Agent VM image name
+  vmImageName: "ubuntu-latest"
+
+stages:
+  - stage: Build
+    displayName: Build image
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: Docker@2
+            displayName: Build image
+            inputs:
+              containerRegistry: "$(dockerRegistryServiceConnection)"
+              repository: "$(imageRepository)"
+              command: "build"
+              Dockerfile: "$(dockerfilePath)"
+              tags: "latest"
+              arguments: "--build-arg NEXT_PUBLIC_SERVER_URL=$(NEXT_PUBLIC_SERVER_URL) --build-arg NEXT_PUBLIC_IS_LIVE=$(NEXT_PUBLIC_IS_LIVE) --build-arg NEXT_PRIVATE_DRAFT_SECRET=$(NEXT_PRIVATE_DRAFT_SECRET) --build-arg NEXT_PRIVATE_REVALIDATION_KEY=$(NEXT_PRIVATE_REVALIDATION_KEY) --build-arg NEXT_PUBLIC_PAYLOAD_URL=$(NEXT_PUBLIC_PAYLOAD_URL)"
+          - task: Docker@2
+            displayName: Push image
+            inputs:
+              containerRegistry: "$(dockerRegistryServiceConnection)"
+              repository: "$(imageRepository)"
+              command: "push"
+              tags: "latest"

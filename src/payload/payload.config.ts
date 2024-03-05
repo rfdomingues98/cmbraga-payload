@@ -2,6 +2,8 @@ import path from "path"
 import { webpackBundler } from "@payloadcms/bundler-webpack"
 import { postgresAdapter } from "@payloadcms/db-postgres"
 import { payloadCloud } from "@payloadcms/plugin-cloud"
+import { cloudStorage } from "@payloadcms/plugin-cloud-storage"
+import { azureBlobStorageAdapter } from "@payloadcms/plugin-cloud-storage/azure"
 import formBuilder from "@payloadcms/plugin-form-builder"
 import nestedDocs from "@payloadcms/plugin-nested-docs"
 import redirects from "@payloadcms/plugin-redirects"
@@ -32,20 +34,15 @@ dotenv.config({
   path: path.resolve(__dirname, "../../.env"),
 })
 
+const adapter = azureBlobStorageAdapter({
+  connectionString: process.env.AZURE_STORAGE_CONNECTION_STRING,
+  containerName: process.env.AZURE_STORAGE_CONTAINER_NAME,
+  allowContainerCreate: process.env.AZURE_STORAGE_ALLOW_CONTAINER_CREATE === "true",
+  baseURL: process.env.AZURE_STORAGE_ACCOUNT_BASEURL,
+})
+
 export default buildConfig({
   admin: {
-    /* livePreview: {
-      url: process.env.NEXT_PUBLIC_ADMIN_LIVE_PREVIEW_URL,
-      collections: ["pages", "news"],
-      breakpoints: [
-        {
-          label: "Mobile",
-          name: "mobile",
-          width: 375,
-          height: 667,
-        },
-      ],
-    }, */
     bundler: webpackBundler(),
     components: {
       graphics: {
@@ -111,6 +108,14 @@ export default buildConfig({
     }),
     formBuilder({}),
     payloadCloud(),
+    cloudStorage({
+      enabled: true, // Can be used to conditionally enable or disable the plugin
+      collections: {
+        media: {
+          adapter,
+        },
+      },
+    }),
   ],
   rateLimit: {
     max: 4000,
