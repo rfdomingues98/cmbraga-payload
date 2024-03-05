@@ -13,15 +13,15 @@ const config = {
     "<THIRD_PARTY_MODULES>",
     "",
     "^types$",
-    "^~/env(.*)$",
-    "^~/types/(.*)$",
-    "^~/config/(.*)$",
-    "^~/lib/(.*)$",
-    "^~/hooks/(.*)$",
-    "^~/components/ui/(.*)$",
-    "^~/components/(.*)$",
-    "^~/styles/(.*)$",
-    "^~/app/(.*)$",
+    "^@/env(.*)$",
+    "^@/types/(.*)$",
+    "^@/config/(.*)$",
+    "^@/lib/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/components/ui/(.*)$",
+    "^@/components/(.*)$",
+    "^@/styles/(.*)$",
+    "^@/app/(.*)$",
     "",
     "^[./]",
   ],
@@ -31,10 +31,7 @@ const config = {
   importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
   importOrderMergeDuplicateImports: true,
   importOrderCombineTypeAndValueImports: true,
-  plugins: [
-    "@ianvs/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss",
-  ],
-};
+  plugins: ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+}
 
-module.exports = config;
+module.exports = config

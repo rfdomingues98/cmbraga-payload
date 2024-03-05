@@ -1,7 +1,8 @@
 import { Fragment, type PropsWithChildren, type ReactNode } from "react"
 import Image from "next/image"
-import Link from "next/link"
 import { Header, Media } from "@/payload/payload-types"
+
+import { CMSLink } from "./cms-link"
 
 type LogoType = Header["logo"]
 
@@ -21,14 +22,7 @@ const LogoItem = ({ logo, width, height }: { logo: LogoType; width?: number; hei
   return (
     <ConditionalLink
       condition={Boolean(logo.isLink)}
-      wrapper={(children) => (
-        <Link
-          href={logo.logoLink.url ?? "#"}
-          className="flex h-full w-full items-center justify-center"
-        >
-          {children}
-        </Link>
-      )}
+      wrapper={(children) => <CMSLink {...logo.logoLink}>{children}</CMSLink>}
     >
       <Fragment>
         <Image

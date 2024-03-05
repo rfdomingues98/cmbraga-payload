@@ -9,8 +9,8 @@ type Props = PropsWithChildren<{
 export function Text({ children, className, variant = "p" }: Props) {
   const Component = variant
   const defaultStyles = {
-    h1: "text-xl font-semibold",
-    h2: "text-lg font-medium",
+    h1: "text-5xl font-semibold text-primary lg:text-[64px]",
+    h2: "text-4xl font-semibold text-primary",
     h3: "text-base font-medium",
     h4: "font-regular text-sm",
     blockquote: "text-sm",

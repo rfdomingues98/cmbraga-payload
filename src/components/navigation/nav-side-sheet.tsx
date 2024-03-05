@@ -2,8 +2,8 @@
 
 import React, { useEffect } from "react"
 import { Sheet, SheetContent, SheetFooter, SheetTrigger } from "@/components/ui/sheet"
-import { type Locale } from "@/config/base"
-import { cn, type GetNavType, type NavigationMenu, type NavigationMenus } from "@/lib/utils"
+import { type Locale } from "@/config"
+import { cn } from "@/lib/utils"
 import { Link } from "@/navigation"
 import { MenuIcon } from "lucide-react"
 import { useLocale } from "next-intl"
@@ -12,16 +12,16 @@ import LanguageSelector from "../language-selector/language-toggle"
 import { Separator } from "../ui/separator"
 
 type NavSideSheetProps = {
-  data: NavigationMenus
+  data: any
 }
 
 type NavSideSheetMenuProps = {
-  data: GetNavType<NavigationMenu, "shared.navigation-menu">["navigation_menu"]
+  data: any
   onMouseEnter?: React.MouseEventHandler<HTMLAnchorElement>
   "data-state"?: "active" | "inactive"
 }
 type NavSideSheetLinkProps = {
-  data: GetNavType<NavigationMenu, "shared.link">
+  data: any
   onMouseEnter?: React.MouseEventHandler<HTMLAnchorElement>
   "data-state"?: "active" | "inactive"
 }
@@ -85,8 +85,7 @@ export function NavSideSheet({ data }: NavSideSheetProps) {
   useEffect(() => {
     const menu =
       data[hoveredIndex]?.__component === "shared.navigation-menu"
-        ? (data[hoveredIndex] as GetNavType<NavigationMenu, "shared.navigation-menu">)
-            .navigation_menu.data.attributes.links
+        ? (data[hoveredIndex] as any).navigation_menu.data.attributes.links
         : ([] as NavSideSheetMenuLinks)
 
     setHoveredData(menu)

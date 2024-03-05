@@ -87,12 +87,9 @@ export function Footer({ data }: FooterProps) {
           </div>
           <div>
             <CMSLink
-              type={data.legal.link_type === "reference" ? "reference" : "custom"}
-              url={data.legal.url}
-              reference={data.legal.reference as any}
-              newTab={Boolean(data.legal.newTab)}
+              {...data.legal}
               className="font-base font-semibold text-primary/80 hover:text-primary"
-              /* aria-label={data.attributes.legal.aria_label} */
+              aria-label={`Go to ${data.legal.label}`}
             >
               {data.legal.label}
             </CMSLink>

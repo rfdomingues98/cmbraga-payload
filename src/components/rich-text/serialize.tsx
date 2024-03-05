@@ -1,7 +1,8 @@
 import React, { Fragment } from "react"
+import { Text } from "@/components/typography"
 import escapeHTML from "escape-html"
 import { ArrowUpRight } from "lucide-react"
-import { Text } from "slate"
+import { Text as SlateText } from "slate"
 
 import { CMSLink } from "../cms-link"
 
@@ -20,7 +21,7 @@ type Leaf = {
 
 const serialize = (children?: Children): React.ReactNode[] =>
   children?.map((node, i) => {
-    if (Text.isText(node)) {
+    if (SlateText.isText(node)) {
       let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
 
       if (node.bold) {
@@ -60,24 +61,21 @@ const serialize = (children?: Children): React.ReactNode[] =>
     switch (node.type) {
       case "h1":
         return (
-          <h1
-            className="text-5xl font-semibold leading-none tracking-normal text-primary lg:text-[64px]"
-            key={i}
-          >
+          <Text variant="h1" className="text-5xl font-semibold text-primary lg:text-[64px]" key={i}>
             {serialize(node?.children)}
-          </h1>
+          </Text>
         )
       case "h2":
         return (
-          <h2 className="text-2xl font-semibold" key={i}>
+          <Text variant="h2" className="text-4xl font-semibold text-primary" key={i}>
             {serialize(node?.children)}
-          </h2>
+          </Text>
         )
       case "h3":
         return (
-          <h3 className="text-3xl font-semibold" key={i}>
+          <Text variant="h3" className="text-3xl font-semibold" key={i}>
             {serialize(node?.children)}
-          </h3>
+          </Text>
         )
       case "h4":
         return <h4 key={i}>{serialize(node?.children)}</h4>
@@ -95,14 +93,7 @@ const serialize = (children?: Children): React.ReactNode[] =>
         return <li key={i}>{serialize(node.children)}</li>
       case "link":
         return (
-          <CMSLink
-            key={i}
-            type={node.linkType === "internal" ? "reference" : "custom"}
-            url={node.url}
-            reference={node.doc as any}
-            newTab={Boolean(node?.newTab)}
-            className={"group flex gap-3"}
-          >
+          <CMSLink key={i} className={"group flex gap-3"} {...node}>
             {serialize(node?.children)}
             <ArrowUpRight className="transition-all ease-in-out group-hover:-translate-y-1 group-hover:translate-x-1" />
           </CMSLink>

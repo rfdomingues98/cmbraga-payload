@@ -6,7 +6,6 @@ import "swiper/css/thumbs"
 
 import { useState } from "react"
 import { cn } from "@/lib/utils"
-import { type OtherAccess } from "@/lib/validations/pages"
 import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react"
 import { Navigation, Thumbs } from "swiper/modules"
 import { Swiper, SwiperSlide, type SwiperClass } from "swiper/react"
@@ -16,7 +15,7 @@ import { Button, type ButtonProps } from "../ui/button"
 
 interface Props {
   slidesPerView: number
-  slides: Array<OtherAccess>
+  slides: Array<any>
   slidesLength: number
   prevAriaLabel: string
   nextAriaLabel: string

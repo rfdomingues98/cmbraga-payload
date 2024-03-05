@@ -14,7 +14,7 @@ export const ContentBlock: React.FC<
   const { columns } = props
 
   return (
-    <section className={cn("relative flex flex-col gap-5 lg:flex-row lg:gap-8 xl:gap-20")}>
+    <div className={cn("relative flex flex-col gap-5 lg:flex-row lg:gap-8 xl:gap-20")}>
       {columns &&
         columns.length > 0 &&
         columns.map((col, index) => {
@@ -41,6 +41,6 @@ export const ContentBlock: React.FC<
             </div>
           )
         })}
-    </section>
+    </div>
   )
 }

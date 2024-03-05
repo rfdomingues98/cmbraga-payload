@@ -1,7 +1,6 @@
-"use client"
-
-import { useSelectedLayoutSegments } from "next/navigation"
-import { Header, Media } from "@/payload/payload-types"
+import { PropsWithChildren } from "react"
+import { Footer, Header, Media } from "@/payload/payload-types"
+import { getSubdomain } from "@/utils/getSubdomain"
 
 import { FooterContainer } from "./footer/footer-container"
 import { NavContainer } from "./navigation/nav-container"
@@ -46,20 +45,23 @@ const data: Header = {
   ],
 }
 
-export const ClientGlobals = ({ children, headerData, footerData }) => {
-  const segments = useSelectedLayoutSegments()
-  return segments[0] === "agenda" ? (
-    <>
-      <main className="min-h-screen bg-gradient-to-b from-[#052B49] to-[#001524]">
-        <NavContainer data={data} showModeToggle={false} />
-        {children}
-      </main>
-    </>
+type Props = PropsWithChildren<{
+  headerData: Header
+  footerData: Footer
+}>
+
+export const ClientGlobals = ({ children, headerData, footerData }: Props) => {
+  const subdomain = getSubdomain()
+  return subdomain === "agenda" ? (
+    <main className="container relative mx-auto min-h-screen max-w-full">
+      <NavContainer data={data} showModeToggle={false} />
+      <div>{children}</div>
+    </main>
   ) : (
-    <>
+    <main className="container relative mx-auto min-h-screen max-w-full">
       <NavContainer data={headerData} />
-      <main className="container mx-auto flex flex-1 flex-col py-20">{children}</main>
+      <div className="container mx-auto pt-20">{children}</div>
       <FooterContainer data={footerData} />
-    </>
+    </main>
   )
 }

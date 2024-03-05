@@ -1,9 +1,10 @@
 import type { Block, Field } from "payload/types"
 
-import { darkerBackground } from "../../fields/darkerBackground"
 import { AlertCarouselBlock } from "../AlertCarousel"
 import { CallToAction } from "../CallToAction"
-import { MediaBlock } from "../MediaBlock"
+import { CardGrid } from "../CardGrid"
+import { LinkGrid } from "../LinkGrid"
+import { MediaBlock } from "../Media"
 import { RichTextBlock } from "../RichTextBlock"
 import { SearchBlock } from "../Search"
 import { SocialsBlock } from "../Socials"
@@ -91,6 +92,8 @@ const columnFields: Field[] = [
       SearchBlock,
       AlertCarouselBlock,
       CallToAction,
+      LinkGrid,
+      CardGrid,
     ],
   },
 ]
@@ -102,7 +105,6 @@ export const Content: Block = {
     plural: "Content Rows",
   },
   fields: [
-    darkerBackground,
     {
       name: "columns",
       type: "array",

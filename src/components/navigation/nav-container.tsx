@@ -29,14 +29,15 @@ export function NavContainer({ data, showModeToggle = true }: NavContainerProps)
       ref={ref}
       id="navbar"
       className={cn(
-        "fixed z-40 w-full transition-all duration-300",
+        "bleed-bg fixed z-40 w-screen transition-all duration-300",
+        subdomain !== "agenda" && "sticky border-b dark:text-foreground",
+        scroll.y !== 0 && "backdrop-blur-sm",
         scroll.y === 0 || scrollDirection === "up" ? "top-0" : "-top-[100px]",
-        scroll.y !== 0 && "bg-[#001524]/20 backdrop-blur-sm",
-        subdomain !== "agenda" && scroll.y === 0 && "border-b-transparent bg-background",
+        subdomain === "agenda" && scroll.y !== 0 && "bleed-[#001524]/20",
+        subdomain !== "agenda" && scroll.y === 0 && "bleed-background border-b-transparent",
         subdomain !== "agenda" &&
           scroll.y !== 0 &&
-          "border-b-gray-400/20 bg-background/95 dark:border-b-primary/20",
-        subdomain !== "agenda" && "sticky border-b duration-300 dark:text-foreground",
+          "bleed-border bleed-background/95 border-b-gray-400/20 bg-background/95 dark:border-b-primary/20",
       )}
       data-height={height}
       data-width={width}

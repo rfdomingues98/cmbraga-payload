@@ -1,64 +1,157 @@
 import React from "react"
 import Link from "next/link"
-import { Page } from "@/payload/payload-types"
+import { ButtonProps } from "@/components/ui/button"
+import { News, Page } from "@/payload/payload-types"
 
-import { Button, Props as ButtonProps } from "../Button"
+type PageReference = {
+  value: number | Page
+  relationTo: "pages"
+}
 
-type CMSLinkType = {
-  type?: "custom" | "reference"
-  url?: string
-  newTab?: boolean
-  reference?: {
-    value: number | Page
-    relationTo: "pages"
-  }
-  label?: string
-  appearance?: ButtonProps["appearance"]
+type NewsReference = {
+  value: number | News
+  relationTo: "news"
+}
+
+export type LinkType = "reference" | "custom" | null
+export type Reference = PageReference | NewsReference | null
+
+export type CMSLinkType = {
+  link_type?: LinkType | null
+  newTab?: boolean | null
+  reference?: Reference | null
+  url?: string | null
+  label?: string | null
   children?: React.ReactNode
+  fullWidth?: boolean
+  mobileFullWidth?: boolean
   className?: string
-  invert?: ButtonProps["invert"]
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
+  buttonProps?: ButtonProps
+}
+
+type GenerateSlugType = {
+  link_type?: LinkType | null
+  url?: string | null
+  reference?: Reference | null
+}
+export const generateHref = (args: GenerateSlugType): string => {
+  const { reference, url, link_type: type } = args
+
+  if ((type === "custom" || type === undefined) && url) {
+    return url
+  }
+
+  if (type === "reference" && reference?.value && typeof reference.value !== "number") {
+    if (reference.relationTo === "pages") {
+      const value = reference.value as Page
+      const breadcrumbs = value?.breadcrumbs
+
+      const hasBreadcrumbs = breadcrumbs && Array.isArray(breadcrumbs) && breadcrumbs.length > 0
+      if (hasBreadcrumbs) {
+        return breadcrumbs[breadcrumbs.length - 1]?.url as string
+      }
+      if (reference.value.slug === "home") {
+        return "/"
+      }
+      return `/${reference.value.slug}`
+    }
+
+    if (reference.relationTo === "news") {
+      return `/news/${reference.value.slug}`
+    }
+
+    /* return `/${reference.relationTo}/${reference.value.slug}` */
+  }
+
+  return ""
 }
 
 export const CMSLink: React.FC<CMSLinkType> = ({
-  type,
+  link_type,
   url,
   newTab,
   reference,
   label,
-  appearance,
   children,
   className,
-  invert,
+  onMouseEnter,
+  onMouseLeave,
+  fullWidth = false,
+  mobileFullWidth = false,
 }) => {
-  let href =
-    type === "reference" && typeof reference?.value === "object" && reference.value.slug
-      ? `${reference?.relationTo !== "pages" ? `/${reference?.relationTo}` : ""}/${
-          reference.value.slug
-        }`
-      : url
-
-  if (!href) return null
+  let href = generateHref({ link_type, url, reference })
   if (href === "/home") href = "/"
-  if (!appearance) {
-    const newTabProps = newTab ? { target: "_blank", rel: "noopener noreferrer" } : {}
-    if (href || url) {
-      return (
-        <Link {...newTabProps} href={href || url} className={className}>
-          {label && label}
-          {children && children}
-        </Link>
-      )
+  if (!href) {
+    return (
+      <span className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        {children}
+      </span>
+    )
+  }
+
+  const hrefIsLocal = ["tel:", "mailto:", "/"].some((prefix) => href.startsWith(prefix))
+
+  if (!hrefIsLocal && href !== "#") {
+    try {
+      const objectURL = new URL(href)
+      if (objectURL.origin === process.env.NEXT_PUBLIC_SITE_URL) {
+        href = objectURL.href.replace(process.env.NEXT_PUBLIC_SITE_URL, "")
+      }
+    } catch (e) {
+      // Do not throw error if URL is invalid
+      // This will prevent the page from building
+      console.log(`Failed to format url: ${href}`, e) // eslint-disable-line no-console
     }
   }
 
+  const newTabProps = newTab ? { target: "_blank", rel: "noopener noreferrer" } : {}
+
+  if (href.indexOf("/") === 0) {
+    return (
+      <Link
+        href={href}
+        {...newTabProps}
+        className={className}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        prefetch={false}
+      >
+        {/* {label && label} */}
+        {children && children}
+      </Link>
+    )
+  }
+
   return (
-    <Button
-      className={className}
-      newTab={newTab}
+    <a
       href={href}
-      appearance={appearance}
-      label={label}
-      invert={invert}
-    />
+      {...newTabProps}
+      className={className}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      {label && label}
+      {children && children}
+    </a>
   )
+
+  /*
+  const buttonProps: ButtonProps = {
+    newTab,
+    href,
+    appearance,
+    label,
+    onMouseEnter,
+    onMouseLeave,
+    fullWidth,
+    mobileFullWidth,
+  }
+
+  if (appearance === 'default') {
+    buttonProps.icon = 'arrow'
+  }
+
+  return <Button {...buttonProps} className={className} el="link" /> */
 }

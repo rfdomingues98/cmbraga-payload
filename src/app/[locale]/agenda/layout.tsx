@@ -1,5 +1,4 @@
 import { PropsWithChildren } from "react"
-import { NavContainer } from "@/components/navigation/nav-container"
 import { Header, Media } from "@/payload/payload-types"
 
 const logo: Media = {
@@ -42,10 +41,5 @@ const data: Header = {
   ],
 }
 export default function Layout({ children }: PropsWithChildren) {
-  return (
-    <main className="min-h-screen bg-gradient-to-b from-[#052B49] to-[#001524]">
-      <NavContainer data={data} showModeToggle={false} />
-      {children}
-    </main>
-  )
+  return children
 }

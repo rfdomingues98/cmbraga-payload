@@ -85,8 +85,10 @@ export default {
     },
   },
   plugins: [
+    require("@tailwindcss/typography"),
     require("tailwindcss-animate"),
     require("./tailwind-plugins/radial-gradient"),
     require("./tailwind-plugins/mask-image"),
+    require("./tailwind-plugins/full-bleed"),
   ],
 } satisfies Config

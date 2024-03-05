@@ -6,91 +6,104 @@ export const home: Omit<Page, "id" | "createdAt" | "updatedAt"> = {
   _status: "published",
   layout: [
     {
+      hasTitle: false,
       darkerBackground: null,
-      blockName: "Header",
-      columns: [
+      spacing: "none",
+      blockName: "Secção Inicial",
+      blockType: "section",
+      blocks: [
         {
-          size: "half",
-          horizontalAlign: "left",
-          verticalAlign: "top",
-          blocks: [
+          blockName: "Header",
+          columns: [
             {
-              richText: [
+              size: "half",
+              horizontalAlign: "left",
+              verticalAlign: "top",
+              blocks: [
                 {
-                  type: "h1",
-                  children: [
+                  richText: [
                     {
-                      text: "Câmara Municipal de Braga",
+                      type: "h1",
+                      children: [
+                        {
+                          text: "Câmara Municipal de Braga",
+                        },
+                      ],
                     },
                   ],
+                  blockName: "Title",
+                  blockType: "richTextBlock",
+                },
+                {
+                  label: "Siga-nos",
+                  blockName: "Social Media Links",
+                  socials: [
+                    {
+                      socialMedia: {
+                        socialLink: {
+                          link_type: "custom",
+                          newTab: true,
+                          url: "https://linkedin.com",
+                        },
+                        socialIcon: "LuLinkedin",
+                      },
+                    },
+                    {
+                      socialMedia: {
+                        socialLink: {
+                          link_type: "custom",
+                          newTab: true,
+                          url: "https://youtube.com",
+                        },
+                        socialIcon: "LuYoutube",
+                      },
+                    },
+                    {
+                      socialMedia: {
+                        socialLink: {
+                          link_type: "custom",
+                          newTab: true,
+                          url: "https://facebook.com",
+                        },
+                        socialIcon: "LuFacebook",
+                      },
+                    },
+                    {
+                      socialMedia: {
+                        socialLink: {
+                          link_type: "custom",
+                          newTab: true,
+                          url: "https://twitter.com",
+                        },
+                        socialIcon: "LuTwitter",
+                      },
+                    },
+                  ],
+                  blockType: "socials",
+                },
+                {
+                  placeholder: "Pesquise Aqui",
+                  blockName: "Global Search",
+                  blockType: "search",
                 },
               ],
-              blockName: "Title",
-              blockType: "richTextBlock",
             },
             {
-              label: "Siga-nos",
-              blockName: "Social Media Links",
-              socials: [
+              size: "half",
+              horizontalAlign: "right",
+              verticalAlign: "top",
+              blocks: [
                 {
-                  socialMedia: {
-                    socialLink: {
-                      link_type: "custom",
-                      newTab: true,
-                      url: "https://linkedin.com",
-                    },
-                    socialIcon: "LuLinkedin",
-                  },
-                },
-                {
-                  socialMedia: {
-                    socialLink: {
-                      link_type: "custom",
-                      newTab: true,
-                      url: "https://youtube.com",
-                    },
-                    socialIcon: "LuYoutube",
-                  },
-                },
-                {
-                  socialMedia: {
-                    socialLink: {
-                      link_type: "custom",
-                      newTab: true,
-                      url: "https://facebook.com",
-                    },
-                    socialIcon: "LuFacebook",
-                  },
-                },
-                {
-                  socialMedia: {
-                    socialLink: {
-                      link_type: "custom",
-                      newTab: true,
-                      url: "https://twitter.com",
-                    },
-                    socialIcon: "LuTwitter",
-                  },
+                  blockName: "Alertas",
+                  blockType: "alertCarousel",
+                  alerts: [1, 2],
                 },
               ],
-              blockType: "socials",
             },
           ],
-        },
-        {
-          size: "half",
-          horizontalAlign: "right",
-          verticalAlign: "top",
-          blocks: [
-            {
-              blockName: "Alertas",
-              blockType: "alertCarousel",
-              alerts: [1, 2],
-            },
-          ],
+          blockType: "content",
         },
       ],
-      blockType: "content",
     },
     {
       type: "highImpact",
@@ -106,6 +119,217 @@ export const home: Omit<Page, "id" | "createdAt" | "updatedAt"> = {
         label: "Ver mais...",
       },
       media: 3,
+    },
+    {
+      hasTitle: true,
+      title: "Acessos Úteis",
+      darkerBackground: null,
+      spacing: "large",
+      blockName: "Secção Acessos Úteis",
+      blockType: "section",
+      blocks: [
+        {
+          iconPosition: "right",
+          blockName: "Links",
+          links: [
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Operações de Reabilitação Urbana",
+              },
+            },
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Operações de Reabilitação Urbana",
+              },
+            },
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Centro de Recolha de Bens Alimentares",
+              },
+            },
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Centro de Recolha de Bens Alimentares",
+              },
+            },
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Animais para adopção",
+              },
+            },
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Animais para adopção",
+              },
+            },
+          ],
+          blockType: "linkGrid",
+        },
+      ],
+    },
+    {
+      hasTitle: true,
+      title: "Notícias",
+      darkerBackground: null,
+      spacing: "normal",
+      blockName: "Noticias",
+      blockType: "section",
+      blocks: [
+        {
+          blockName: "Cards",
+          blockType: "cardGrid",
+          cardGridFields: {
+            populateFrom: "news",
+            useWithContainer: null,
+            showIcon: true,
+            cards: [],
+            newsCards: [
+              {
+                card: 2,
+              },
+              {
+                card: 1,
+              },
+              {
+                card: 3,
+              },
+            ],
+          },
+        },
+      ],
+    },
+    {
+      hasTitle: true,
+      title: "Serviços Municipais",
+      darkerBackground: null,
+      spacing: "large",
+      blockName: "Secção Serviços Municipais",
+      blockType: "section",
+      blocks: [
+        {
+          iconPosition: "left",
+          blockName: "Links",
+          links: [
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Regulamentos",
+              },
+            },
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Regulamentos",
+              },
+            },
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Taxas Municipais",
+              },
+            },
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Taxas Municipais",
+              },
+            },
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Taxas Municipais",
+              },
+            },
+            {
+              link: {
+                link_type: "reference",
+                newTab: null,
+                reference: {
+                  relationTo: "pages",
+                  value: 1,
+                },
+                url: null,
+                label: "Taxas Municipais",
+              },
+            },
+          ],
+          blockType: "linkGrid",
+        },
+      ],
     },
   ],
 }

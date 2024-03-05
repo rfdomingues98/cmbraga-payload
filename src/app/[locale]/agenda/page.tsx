@@ -33,38 +33,40 @@ const Gradients = () => {
 export default function Page() {
   return (
     <>
-      <section className="flex h-screen w-screen items-center">
-        <Image
-          src="/braga-romana.jpeg"
-          alt="Imagem da Carolina Deslandes"
-          width={1920}
-          height={1080}
-          style={{ width: "100%", height: "auto" }}
-          className="absolute min-h-screen max-w-full opacity-40 grayscale gradient-mask-b-0"
-        />
-        <div className="z-1 container relative mx-auto flex w-full flex-col items-end justify-between md:flex-row">
-          <Gradients />
-          <h1 className="z-10 w-[850px] cursor-default font-canopee text-[240px] leading-[240px] text-white subpixel-antialiased mix-blend-overlay">
-            Agenda de Braga 2024
-          </h1>
-          <div className="relative flex max-h-48 overflow-hidden">
-            <VerticalTicker duration={3500} easing={"linear"} delay={0} reverse={true}>
-              <ArrowSvg />
-            </VerticalTicker>
-            <div className="relative z-10 mb-2 flex w-full max-w-[170px] flex-col gap-6 self-end border-dashed border-white px-5 py-3">
-              <Link href="#">Destaques da Semana</Link>
-              <Link href="#">Descobrir Braga</Link>
-              <Link href="#">Quando em Braga</Link>
+      <Image
+        src="/braga-romana.jpeg"
+        alt="Imagem da Carolina Deslandes"
+        width={1920}
+        height={1080}
+        style={{ width: "100vw", height: "auto" }}
+        className="absolute flex min-h-screen w-screen opacity-40 grayscale gradient-mask-b-0"
+      />
+      <main className="container mx-auto">
+        <section className="flex min-h-screen w-full items-center">
+          <div className="relative flex w-full flex-col items-end justify-between md:flex-row">
+            <Gradients />
+            <h1 className="z-10 w-[850px] cursor-default font-canopee text-[240px] leading-[240px] text-white subpixel-antialiased mix-blend-overlay">
+              Agenda de Braga 2024
+            </h1>
+            <div className="relative flex max-h-48 overflow-hidden">
+              <VerticalTicker duration={3500} easing={"linear"} delay={0} reverse={true}>
+                <ArrowSvg />
+              </VerticalTicker>
+              <div className="relative z-10 mb-2 flex w-full max-w-[170px] flex-col gap-6 self-end px-5 py-3">
+                <Link href="#">Destaques da Semana</Link>
+                <Link href="#">Descobrir Braga</Link>
+                <Link href="#">Quando em Braga</Link>
+              </div>
             </div>
           </div>
-        </div>
-        <MouseGradient />
-      </section>
-      <section className="container mx-auto h-screen pt-[194px]">
-        <Title text={"Destaques da Semana"} />
-      </section>
-      <section className="h-screen"></section>
-      <section className="h-screen"></section>
+          <MouseGradient />
+        </section>
+        <section className="h-screen pt-[194px]">
+          <Title text={"Destaques da Semana"} />
+        </section>
+        <section className="h-screen"></section>
+        <section className="h-screen"></section>
+      </main>
     </>
   )
 }

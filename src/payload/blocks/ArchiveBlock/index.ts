@@ -34,15 +34,11 @@ export const Archive: Block = {
       type: "select",
       name: "relationTo",
       label: "Collections To Show",
-      defaultValue: "posts",
+      defaultValue: "news",
       admin: {
         condition: (_, siblingData) => siblingData.populateBy === "collection",
       },
       options: [
-        {
-          label: "Posts",
-          value: "posts",
-        },
         {
           label: "News",
           value: "news",
@@ -73,7 +69,7 @@ export const Archive: Block = {
       type: "relationship",
       name: "selectedDocs",
       label: "Selection",
-      relationTo: ["posts", "news"],
+      relationTo: ["news"],
       hasMany: true,
       admin: {
         condition: (_, siblingData) => siblingData.populateBy === "selection",
@@ -83,7 +79,7 @@ export const Archive: Block = {
       type: "relationship",
       name: "populatedDocs",
       label: "Populated Docs",
-      relationTo: ["posts", "news"],
+      relationTo: ["news"],
       hasMany: true,
       admin: {
         disabled: true,

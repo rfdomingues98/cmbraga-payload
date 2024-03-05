@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils"
 
 import "@/styles/globals.css"
 
+import { unstable_setRequestLocale } from "next-intl/server"
+
 const fontSans = Poppins({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
@@ -28,6 +30,7 @@ export default async function RootLayout({
   children: React.ReactNode
   params: { locale: string }
 }) {
+  unstable_setRequestLocale(locale)
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>

@@ -3,11 +3,14 @@ import { Page } from "@/payload/payload-types"
 import { toKebabCase } from "@/utils/toKebabCase"
 
 import { AlertsCarousel } from "./alerts-carousel"
+import { CardGrid } from "./card-grid"
 import { ContentBlock } from "./content"
 import { HeroBlock } from "./hero"
+import { LinkGridBlock } from "./link-grid"
 import { MediaBlock } from "./media"
 import { RichTextBlock } from "./rich-text"
 import { SearchBlock } from "./search-block"
+import { SectionBlock } from "./section"
 import { SocialMediaBlock } from "./social-media"
 
 const blockComponents = {
@@ -18,13 +21,16 @@ const blockComponents = {
   socials: SocialMediaBlock,
   alertCarousel: AlertsCarousel,
   search: SearchBlock,
+  section: SectionBlock,
+  linkGrid: LinkGridBlock,
+  cardGrid: CardGrid,
 }
 
 export const Blocks: React.FC<{
   blocks: Page["layout"][0][]
   disableTopPadding?: boolean
 }> = (props) => {
-  const { disableTopPadding, blocks } = props
+  const { blocks } = props
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
@@ -37,7 +43,6 @@ export const Blocks: React.FC<{
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType]
 
-            const useDarkerBackground = "darkerBackground" in block ? block.darkerBackground : false
             if (Block) {
               return <Block key={index} id={toKebabCase(blockName)} {...block} />
             }

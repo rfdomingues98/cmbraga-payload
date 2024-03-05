@@ -13,7 +13,6 @@ export interface Config {
     categories: Category;
     users: User;
     menus: Menu;
-    posts: Post;
     news: News;
     'alert-types': AlertType;
     alerts: Alert;
@@ -48,32 +47,20 @@ export interface Page {
           [k: string]: unknown;
         }[];
         populateBy?: ('collection' | 'selection') | null;
-        relationTo?: ('posts' | 'news') | null;
+        relationTo?: 'news' | null;
         categories?: (number | Category)[] | null;
         limit?: number | null;
         selectedDocs?:
-          | (
-              | {
-                  relationTo: 'posts';
-                  value: number | Post;
-                }
-              | {
-                  relationTo: 'news';
-                  value: number | News;
-                }
-            )[]
+          | {
+              relationTo: 'news';
+              value: number | News;
+            }[]
           | null;
         populatedDocs?:
-          | (
-              | {
-                  relationTo: 'posts';
-                  value: number | Post;
-                }
-              | {
-                  relationTo: 'news';
-                  value: number | News;
-                }
-            )[]
+          | {
+              relationTo: 'news';
+              value: number | News;
+            }[]
           | null;
         populatedDocsTotal?: number | null;
         id?: string | null;
@@ -105,7 +92,6 @@ export interface Page {
         blockType: 'cta';
       }
     | {
-        darkerBackground?: boolean | null;
         columns?:
           | {
               size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
@@ -123,7 +109,7 @@ export interface Page {
                       }
                     | {
                         darkerBackground?: boolean | null;
-                        position?: ('default' | 'fullscreen') | null;
+                        position?: ('default' | 'wide') | null;
                         media: number | Media;
                         id?: string | null;
                         blockName?: string | null;
@@ -186,6 +172,60 @@ export interface Page {
                         blockName?: string | null;
                         blockType: 'cta';
                       }
+                    | {
+                        iconPosition?: ('left' | 'right') | null;
+                        links?:
+                          | {
+                              link?: {
+                                link_type?: ('reference' | 'custom') | null;
+                                newTab?: boolean | null;
+                                reference?: {
+                                  relationTo: 'pages';
+                                  value: number | Page;
+                                } | null;
+                                url?: string | null;
+                                label?: string | null;
+                              };
+                              id?: string | null;
+                            }[]
+                          | null;
+                        id?: string | null;
+                        blockName?: string | null;
+                        blockType: 'linkGrid';
+                      }
+                    | {
+                        cardGridFields?: {
+                          populateFrom?: ('none' | 'news') | null;
+                          useWithContainer?: boolean | null;
+                          showIcon?: boolean | null;
+                          cards?:
+                            | {
+                                title: string;
+                                description?: string | null;
+                                enableLink?: boolean | null;
+                                link?: {
+                                  link_type?: ('reference' | 'custom') | null;
+                                  newTab?: boolean | null;
+                                  reference?: {
+                                    relationTo: 'pages';
+                                    value: number | Page;
+                                  } | null;
+                                  url?: string | null;
+                                };
+                                id?: string | null;
+                              }[]
+                            | null;
+                          newsCards?:
+                            | {
+                                card?: (number | null) | News;
+                                id?: string | null;
+                              }[]
+                            | null;
+                        };
+                        id?: string | null;
+                        blockName?: string | null;
+                        blockType: 'cardGrid';
+                      }
                   )[]
                 | null;
               id?: string | null;
@@ -216,7 +256,7 @@ export interface Page {
       }
     | {
         darkerBackground?: boolean | null;
-        position?: ('default' | 'fullscreen') | null;
+        position?: ('default' | 'wide') | null;
         media: number | Media;
         id?: string | null;
         blockName?: string | null;
@@ -257,8 +297,354 @@ export interface Page {
         blockName?: string | null;
         blockType: 'socials';
       }
+    | {
+        iconPosition?: ('left' | 'right') | null;
+        links?:
+          | {
+              link?: {
+                link_type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label?: string | null;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'linkGrid';
+      }
+    | {
+        cardGridFields?: {
+          populateFrom?: ('none' | 'news') | null;
+          useWithContainer?: boolean | null;
+          showIcon?: boolean | null;
+          cards?:
+            | {
+                title: string;
+                description?: string | null;
+                enableLink?: boolean | null;
+                link?: {
+                  link_type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?: {
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null;
+                  url?: string | null;
+                };
+                id?: string | null;
+              }[]
+            | null;
+          newsCards?:
+            | {
+                card?: (number | null) | News;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'cardGrid';
+      }
+    | {
+        hasTitle?: boolean | null;
+        title?: string | null;
+        darkerBackground?: boolean | null;
+        spacing?: ('none' | 'small' | 'normal' | 'large') | null;
+        blocks: (
+          | {
+              columns?:
+                | {
+                    size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
+                    horizontalAlign?: ('left' | 'center' | 'right') | null;
+                    verticalAlign?: ('top' | 'middle' | 'bottom') | null;
+                    blocks?:
+                      | (
+                          | {
+                              richText: {
+                                [k: string]: unknown;
+                              }[];
+                              id?: string | null;
+                              blockName?: string | null;
+                              blockType: 'richTextBlock';
+                            }
+                          | {
+                              darkerBackground?: boolean | null;
+                              position?: ('default' | 'wide') | null;
+                              media: number | Media;
+                              id?: string | null;
+                              blockName?: string | null;
+                              blockType: 'mediaBlock';
+                            }
+                          | {
+                              label: string;
+                              socials: {
+                                socialMedia?: {
+                                  socialLink?: {
+                                    link_type?: ('reference' | 'custom') | null;
+                                    newTab?: boolean | null;
+                                    reference?: {
+                                      relationTo: 'pages';
+                                      value: number | Page;
+                                    } | null;
+                                    url?: string | null;
+                                  };
+                                  socialIcon?: string | null;
+                                };
+                                id?: string | null;
+                              }[];
+                              id?: string | null;
+                              blockName?: string | null;
+                              blockType: 'socials';
+                            }
+                          | {
+                              placeholder: string;
+                              id?: string | null;
+                              blockName?: string | null;
+                              blockType: 'search';
+                            }
+                          | {
+                              alerts: (number | Alert)[];
+                              id?: string | null;
+                              blockName?: string | null;
+                              blockType: 'alertCarousel';
+                            }
+                          | {
+                              darkerBackground?: boolean | null;
+                              richText: {
+                                [k: string]: unknown;
+                              }[];
+                              links?:
+                                | {
+                                    link?: {
+                                      link_type?: ('reference' | 'custom') | null;
+                                      newTab?: boolean | null;
+                                      reference?: {
+                                        relationTo: 'pages';
+                                        value: number | Page;
+                                      } | null;
+                                      url?: string | null;
+                                      label?: string | null;
+                                    };
+                                    id?: string | null;
+                                  }[]
+                                | null;
+                              id?: string | null;
+                              blockName?: string | null;
+                              blockType: 'cta';
+                            }
+                          | {
+                              iconPosition?: ('left' | 'right') | null;
+                              links?:
+                                | {
+                                    link?: {
+                                      link_type?: ('reference' | 'custom') | null;
+                                      newTab?: boolean | null;
+                                      reference?: {
+                                        relationTo: 'pages';
+                                        value: number | Page;
+                                      } | null;
+                                      url?: string | null;
+                                      label?: string | null;
+                                    };
+                                    id?: string | null;
+                                  }[]
+                                | null;
+                              id?: string | null;
+                              blockName?: string | null;
+                              blockType: 'linkGrid';
+                            }
+                          | {
+                              cardGridFields?: {
+                                populateFrom?: ('none' | 'news') | null;
+                                useWithContainer?: boolean | null;
+                                showIcon?: boolean | null;
+                                cards?:
+                                  | {
+                                      title: string;
+                                      description?: string | null;
+                                      enableLink?: boolean | null;
+                                      link?: {
+                                        link_type?: ('reference' | 'custom') | null;
+                                        newTab?: boolean | null;
+                                        reference?: {
+                                          relationTo: 'pages';
+                                          value: number | Page;
+                                        } | null;
+                                        url?: string | null;
+                                      };
+                                      id?: string | null;
+                                    }[]
+                                  | null;
+                                newsCards?:
+                                  | {
+                                      card?: (number | null) | News;
+                                      id?: string | null;
+                                    }[]
+                                  | null;
+                              };
+                              id?: string | null;
+                              blockName?: string | null;
+                              blockType: 'cardGrid';
+                            }
+                        )[]
+                      | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'content';
+            }
+          | {
+              richText: {
+                [k: string]: unknown;
+              }[];
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'richTextBlock';
+            }
+          | {
+              darkerBackground?: boolean | null;
+              position?: ('default' | 'wide') | null;
+              media: number | Media;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'mediaBlock';
+            }
+          | {
+              label: string;
+              socials: {
+                socialMedia?: {
+                  socialLink?: {
+                    link_type?: ('reference' | 'custom') | null;
+                    newTab?: boolean | null;
+                    reference?: {
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null;
+                    url?: string | null;
+                  };
+                  socialIcon?: string | null;
+                };
+                id?: string | null;
+              }[];
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'socials';
+            }
+          | {
+              placeholder: string;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'search';
+            }
+          | {
+              alerts: (number | Alert)[];
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'alertCarousel';
+            }
+          | {
+              darkerBackground?: boolean | null;
+              richText: {
+                [k: string]: unknown;
+              }[];
+              links?:
+                | {
+                    link?: {
+                      link_type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?: {
+                        relationTo: 'pages';
+                        value: number | Page;
+                      } | null;
+                      url?: string | null;
+                      label?: string | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'cta';
+            }
+          | {
+              iconPosition?: ('left' | 'right') | null;
+              links?:
+                | {
+                    link?: {
+                      link_type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?: {
+                        relationTo: 'pages';
+                        value: number | Page;
+                      } | null;
+                      url?: string | null;
+                      label?: string | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'linkGrid';
+            }
+          | {
+              cardGridFields?: {
+                populateFrom?: ('none' | 'news') | null;
+                useWithContainer?: boolean | null;
+                showIcon?: boolean | null;
+                cards?:
+                  | {
+                      title: string;
+                      description?: string | null;
+                      enableLink?: boolean | null;
+                      link?: {
+                        link_type?: ('reference' | 'custom') | null;
+                        newTab?: boolean | null;
+                        reference?: {
+                          relationTo: 'pages';
+                          value: number | Page;
+                        } | null;
+                        url?: string | null;
+                      };
+                      id?: string | null;
+                    }[]
+                  | null;
+                newsCards?:
+                  | {
+                      card?: (number | null) | News;
+                      id?: string | null;
+                    }[]
+                  | null;
+              };
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'cardGrid';
+            }
+        )[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'section';
+      }
   )[];
   slug?: string | null;
+  menu?: (number | null) | Menu;
+  parent?: (number | null) | Page;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Page;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -315,393 +701,45 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "news".
  */
-export interface Post {
+export interface News {
   id: number;
   title: string;
-  categories?: (number | Category)[] | null;
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
+  image: number | Media;
+  excerpt: {
+    [k: string]: unknown;
+  }[];
+  content: (
     | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-    richText: {
-      [k: string]: unknown;
-    }[];
-    links?:
-      | {
-          link?: {
-            link_type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?: {
-              relationTo: 'pages';
-              value: number | Page;
-            } | null;
-            url?: string | null;
-            label?: string | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    media?: number | Media | null;
-  };
-  layout: (
-    | {
-        darkerBackground?: boolean | null;
         richText: {
           [k: string]: unknown;
         }[];
-        links?:
-          | {
-              link?: {
-                link_type?: ('reference' | 'custom') | null;
-                newTab?: boolean | null;
-                reference?: {
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null;
-                url?: string | null;
-                label?: string | null;
-              };
-              id?: string | null;
-            }[]
-          | null;
         id?: string | null;
         blockName?: string | null;
-        blockType: 'cta';
+        blockType: 'newsContent';
       }
     | {
         darkerBackground?: boolean | null;
-        columns?:
-          | {
-              size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-              horizontalAlign?: ('left' | 'center' | 'right') | null;
-              verticalAlign?: ('top' | 'middle' | 'bottom') | null;
-              blocks?:
-                | (
-                    | {
-                        richText: {
-                          [k: string]: unknown;
-                        }[];
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'richTextBlock';
-                      }
-                    | {
-                        darkerBackground?: boolean | null;
-                        position?: ('default' | 'fullscreen') | null;
-                        media: number | Media;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'mediaBlock';
-                      }
-                    | {
-                        label: string;
-                        socials: {
-                          socialMedia?: {
-                            socialLink?: {
-                              link_type?: ('reference' | 'custom') | null;
-                              newTab?: boolean | null;
-                              reference?: {
-                                relationTo: 'pages';
-                                value: number | Page;
-                              } | null;
-                              url?: string | null;
-                            };
-                            socialIcon?: string | null;
-                          };
-                          id?: string | null;
-                        }[];
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'socials';
-                      }
-                    | {
-                        placeholder: string;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'search';
-                      }
-                    | {
-                        alerts: (number | Alert)[];
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'alertCarousel';
-                      }
-                    | {
-                        darkerBackground?: boolean | null;
-                        richText: {
-                          [k: string]: unknown;
-                        }[];
-                        links?:
-                          | {
-                              link?: {
-                                link_type?: ('reference' | 'custom') | null;
-                                newTab?: boolean | null;
-                                reference?: {
-                                  relationTo: 'pages';
-                                  value: number | Page;
-                                } | null;
-                                url?: string | null;
-                                label?: string | null;
-                              };
-                              id?: string | null;
-                            }[]
-                          | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'cta';
-                      }
-                  )[]
-                | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'content';
-      }
-    | {
-        darkerBackground?: boolean | null;
-        position?: ('default' | 'fullscreen') | null;
+        position?: ('default' | 'wide') | null;
         media: number | Media;
         id?: string | null;
         blockName?: string | null;
         blockType: 'mediaBlock';
       }
-    | {
-        introContent: {
-          [k: string]: unknown;
-        }[];
-        populateBy?: ('collection' | 'selection') | null;
-        relationTo?: ('posts' | 'news') | null;
-        categories?: (number | Category)[] | null;
-        limit?: number | null;
-        selectedDocs?:
-          | (
-              | {
-                  relationTo: 'posts';
-                  value: number | Post;
-                }
-              | {
-                  relationTo: 'news';
-                  value: number | News;
-                }
-            )[]
-          | null;
-        populatedDocs?:
-          | (
-              | {
-                  relationTo: 'posts';
-                  value: number | Post;
-                }
-              | {
-                  relationTo: 'news';
-                  value: number | News;
-                }
-            )[]
-          | null;
-        populatedDocsTotal?: number | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'archive';
-      }
   )[];
-  enablePremiumContent?: boolean | null;
-  premiumContent?:
-    | (
-        | {
-            darkerBackground?: boolean | null;
-            richText: {
-              [k: string]: unknown;
-            }[];
-            links?:
-              | {
-                  link?: {
-                    link_type?: ('reference' | 'custom') | null;
-                    newTab?: boolean | null;
-                    reference?: {
-                      relationTo: 'pages';
-                      value: number | Page;
-                    } | null;
-                    url?: string | null;
-                    label?: string | null;
-                  };
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cta';
-          }
-        | {
-            darkerBackground?: boolean | null;
-            columns?:
-              | {
-                  size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-                  horizontalAlign?: ('left' | 'center' | 'right') | null;
-                  verticalAlign?: ('top' | 'middle' | 'bottom') | null;
-                  blocks?:
-                    | (
-                        | {
-                            richText: {
-                              [k: string]: unknown;
-                            }[];
-                            id?: string | null;
-                            blockName?: string | null;
-                            blockType: 'richTextBlock';
-                          }
-                        | {
-                            darkerBackground?: boolean | null;
-                            position?: ('default' | 'fullscreen') | null;
-                            media: number | Media;
-                            id?: string | null;
-                            blockName?: string | null;
-                            blockType: 'mediaBlock';
-                          }
-                        | {
-                            label: string;
-                            socials: {
-                              socialMedia?: {
-                                socialLink?: {
-                                  link_type?: ('reference' | 'custom') | null;
-                                  newTab?: boolean | null;
-                                  reference?: {
-                                    relationTo: 'pages';
-                                    value: number | Page;
-                                  } | null;
-                                  url?: string | null;
-                                };
-                                socialIcon?: string | null;
-                              };
-                              id?: string | null;
-                            }[];
-                            id?: string | null;
-                            blockName?: string | null;
-                            blockType: 'socials';
-                          }
-                        | {
-                            placeholder: string;
-                            id?: string | null;
-                            blockName?: string | null;
-                            blockType: 'search';
-                          }
-                        | {
-                            alerts: (number | Alert)[];
-                            id?: string | null;
-                            blockName?: string | null;
-                            blockType: 'alertCarousel';
-                          }
-                        | {
-                            darkerBackground?: boolean | null;
-                            richText: {
-                              [k: string]: unknown;
-                            }[];
-                            links?:
-                              | {
-                                  link?: {
-                                    link_type?: ('reference' | 'custom') | null;
-                                    newTab?: boolean | null;
-                                    reference?: {
-                                      relationTo: 'pages';
-                                      value: number | Page;
-                                    } | null;
-                                    url?: string | null;
-                                    label?: string | null;
-                                  };
-                                  id?: string | null;
-                                }[]
-                              | null;
-                            id?: string | null;
-                            blockName?: string | null;
-                            blockType: 'cta';
-                          }
-                      )[]
-                    | null;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'content';
-          }
-        | {
-            darkerBackground?: boolean | null;
-            position?: ('default' | 'fullscreen') | null;
-            media: number | Media;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'mediaBlock';
-          }
-        | {
-            introContent: {
-              [k: string]: unknown;
-            }[];
-            populateBy?: ('collection' | 'selection') | null;
-            relationTo?: ('posts' | 'news') | null;
-            categories?: (number | Category)[] | null;
-            limit?: number | null;
-            selectedDocs?:
-              | (
-                  | {
-                      relationTo: 'posts';
-                      value: number | Post;
-                    }
-                  | {
-                      relationTo: 'news';
-                      value: number | News;
-                    }
-                )[]
-              | null;
-            populatedDocs?:
-              | (
-                  | {
-                      relationTo: 'posts';
-                      value: number | Post;
-                    }
-                  | {
-                      relationTo: 'news';
-                      value: number | News;
-                    }
-                )[]
-              | null;
-            populatedDocsTotal?: number | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'archive';
-          }
-      )[]
-    | null;
-  relatedPosts?: (number | Post)[] | null;
+  relatedNews?: (number | News)[] | null;
   slug?: string | null;
+  publishedOn?: string | null;
+  categories?: (number | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: number | Media | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  name?: string | null;
-  roles?: ('admin' | 'editor')[] | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -723,205 +761,6 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "news".
- */
-export interface News {
-  id: number;
-  title: string;
-  categories?: (number | Category)[] | null;
-  publishedAt?: string | null;
-  hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-    richText: {
-      [k: string]: unknown;
-    }[];
-    links?:
-      | {
-          link?: {
-            link_type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?: {
-              relationTo: 'pages';
-              value: number | Page;
-            } | null;
-            url?: string | null;
-            label?: string | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    media?: number | Media | null;
-  };
-  layout: (
-    | {
-        darkerBackground?: boolean | null;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        links?:
-          | {
-              link?: {
-                link_type?: ('reference' | 'custom') | null;
-                newTab?: boolean | null;
-                reference?: {
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null;
-                url?: string | null;
-                label?: string | null;
-              };
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'cta';
-      }
-    | {
-        darkerBackground?: boolean | null;
-        columns?:
-          | {
-              size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-              horizontalAlign?: ('left' | 'center' | 'right') | null;
-              verticalAlign?: ('top' | 'middle' | 'bottom') | null;
-              blocks?:
-                | (
-                    | {
-                        richText: {
-                          [k: string]: unknown;
-                        }[];
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'richTextBlock';
-                      }
-                    | {
-                        darkerBackground?: boolean | null;
-                        position?: ('default' | 'fullscreen') | null;
-                        media: number | Media;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'mediaBlock';
-                      }
-                    | {
-                        label: string;
-                        socials: {
-                          socialMedia?: {
-                            socialLink?: {
-                              link_type?: ('reference' | 'custom') | null;
-                              newTab?: boolean | null;
-                              reference?: {
-                                relationTo: 'pages';
-                                value: number | Page;
-                              } | null;
-                              url?: string | null;
-                            };
-                            socialIcon?: string | null;
-                          };
-                          id?: string | null;
-                        }[];
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'socials';
-                      }
-                    | {
-                        placeholder: string;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'search';
-                      }
-                    | {
-                        alerts: (number | Alert)[];
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'alertCarousel';
-                      }
-                    | {
-                        darkerBackground?: boolean | null;
-                        richText: {
-                          [k: string]: unknown;
-                        }[];
-                        links?:
-                          | {
-                              link?: {
-                                link_type?: ('reference' | 'custom') | null;
-                                newTab?: boolean | null;
-                                reference?: {
-                                  relationTo: 'pages';
-                                  value: number | Page;
-                                } | null;
-                                url?: string | null;
-                                label?: string | null;
-                              };
-                              id?: string | null;
-                            }[]
-                          | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'cta';
-                      }
-                  )[]
-                | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'content';
-      }
-    | {
-        darkerBackground?: boolean | null;
-        position?: ('default' | 'fullscreen') | null;
-        media: number | Media;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaBlock';
-      }
-    | {
-        introContent: {
-          [k: string]: unknown;
-        }[];
-        populateBy?: ('collection' | 'selection') | null;
-        relationTo?: ('posts' | 'news') | null;
-        categories?: (number | Category)[] | null;
-        limit?: number | null;
-        selectedDocs?:
-          | (
-              | {
-                  relationTo: 'posts';
-                  value: number | Post;
-                }
-              | {
-                  relationTo: 'news';
-                  value: number | News;
-                }
-            )[]
-          | null;
-        populatedDocs?:
-          | (
-              | {
-                  relationTo: 'posts';
-                  value: number | Post;
-                }
-              | {
-                  relationTo: 'news';
-                  value: number | News;
-                }
-            )[]
-          | null;
-        populatedDocsTotal?: number | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'archive';
-      }
-  )[];
-  relatedNews?: (number | News)[] | null;
-  slug?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -965,6 +804,25 @@ export interface Menu {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  name?: string | null;
+  roles?: ('admin' | 'editor')[] | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1022,21 +880,11 @@ export interface Form {
             blockType: 'email';
           }
         | {
-            message?: {
-              root: {
-                children: {
-                  type: string;
-                  version: number;
+            message?:
+              | {
                   [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                type: string;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'message';
@@ -1101,21 +949,11 @@ export interface Form {
     | null;
   submitButtonLabel?: string | null;
   confirmationType?: ('message' | 'redirect') | null;
-  confirmationMessage?: {
-    root: {
-      children: {
-        type: string;
-        version: number;
+  confirmationMessage?:
+    | {
         [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      type: string;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+      }[]
+    | null;
   redirect?: {
     url: string;
   };
@@ -1127,21 +965,11 @@ export interface Form {
         replyTo?: string | null;
         emailFrom?: string | null;
         subject: string;
-        message?: {
-          root: {
-            children: {
-              type: string;
-              version: number;
+        message?:
+          | {
               [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            type: string;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -1217,7 +1045,6 @@ export interface Header {
         value: number | Page;
       } | null;
       url?: string | null;
-      label?: string | null;
     };
   };
   menus?:
@@ -1268,7 +1095,7 @@ export interface Footer {
     email: string;
     isLink?: boolean | null;
   };
-  legal: {
+  legal?: {
     link_type?: ('reference' | 'custom') | null;
     newTab?: boolean | null;
     reference?: {

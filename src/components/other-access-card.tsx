@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { type OtherAccess } from "@/lib/validations/pages"
 import { useLocale } from "next-intl"
 
 import { AnimatedArrow } from "./animated-arrow"
@@ -10,7 +9,7 @@ import { Button } from "./ui/button"
 import { Card, CardContent, CardDescription, CardTitle } from "./ui/card"
 
 interface Props {
-  otherAccess: OtherAccess
+  otherAccess: any
 }
 
 export function OtherAccessCard({ otherAccess }: Props) {
@@ -31,9 +30,7 @@ export function OtherAccessCard({ otherAccess }: Props) {
         <div className="relative h-full min-h-[183px] w-full">
           <Image
             src={cover_img.data.attributes.url}
-            alt={
-              cover_img.data.attributes.alternativeText ?? "other-access-img"
-            }
+            alt={cover_img.data.attributes.alternativeText ?? "other-access-img"}
             fill
             className="rounded-lg object-cover"
           />
@@ -41,9 +38,7 @@ export function OtherAccessCard({ otherAccess }: Props) {
 
         <div className=" flex justify-between">
           <div className="mt-1 flex basis-1/2 flex-col justify-between">
-            <CardTitle className="max-w-[580px] text-5xl text-primary">
-              {title}
-            </CardTitle>
+            <CardTitle className="max-w-[580px] text-5xl text-primary">{title}</CardTitle>
             {subtitle ? <p className="mt-4">{subtitle}</p> : <div> </div>}
             <Button
               asChild

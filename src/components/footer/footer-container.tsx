@@ -8,7 +8,10 @@ type FooterContainerProps = {
 
 export function FooterContainer({ data }: FooterContainerProps) {
   return (
-    <footer id="footer" className="bg-darker-background p-16 pb-9 text-primary">
+    <footer
+      id="footer"
+      className="bleed-bg bleed-darker-background bg-darker-background p-16 pb-9 text-primary"
+    >
       <Footer data={data} />
     </footer>
   )

@@ -6,12 +6,17 @@ import { alertTypes } from "./alert-types"
 import { alerts } from "./alerts"
 import { bragaDark } from "./braga-dark"
 import { bragaLight } from "./braga-light"
+import { categories } from "./categories"
 import { footer, header } from "./globals"
 import { home } from "./home"
 import { homeHero } from "./home-hero"
 import { agenda, apoioAoCidadao, atualidade, cidade, municipio } from "./menus"
+import { news } from "./news"
+import { news1 } from "./news-1"
+import { news2 } from "./news-2"
+import { news3 } from "./news-3"
 
-const collections = ["pages", "menus"]
+const collections = ["pages", "menus", "news", "categories", "alerts", "alert-types", "media"]
 
 export const seedData = async (payload: Payload): Promise<void> => {
   payload.logger.info("Seeding database...")
@@ -80,13 +85,41 @@ export const seedData = async (payload: Payload): Promise<void> => {
       data: homeHero,
     }),
   ])
+  const [news1Doc, news2Doc, news3Doc] = await Promise.all([
+    await payload.create({
+      collection: "media",
+      filePath: path.resolve(__dirname, "news-1.png"),
+      data: news1,
+    }),
+    await payload.create({
+      collection: "media",
+      filePath: path.resolve(__dirname, "news-2.png"),
+      data: news2,
+    }),
+    await payload.create({
+      collection: "media",
+      filePath: path.resolve(__dirname, "news-3.png"),
+      data: news3,
+    }),
+  ])
 
   let bragaLightLogoId = bragaLightLogoDoc.id
   let bragaDarkLogoId = bragaDarkLogoDoc.id
   let homeHeroId = homeHeroDoc.id
 
+  let news1Id = news1Doc.id
+  let news2Id = news2Doc.id
+  let news3Id = news3Doc.id
+  let newsMedia = [news1Id, news2Id, news3Id]
+
   payload.logger.info("- Seeding collections and globals...")
 
+  payload.logger.info("-- Seeding categories...")
+  const categoriesDoc = await Promise.all(
+    categories.map(
+      async (category) => await payload.create({ collection: "categories", data: category }),
+    ),
+  )
   payload.logger.info("-- Seeding alert types...")
   const alertTypesDoc = await Promise.all(
     alertTypes.map(
@@ -96,8 +129,19 @@ export const seedData = async (payload: Payload): Promise<void> => {
   payload.logger.info("-- Seeding alerts...")
   const alertsDoc = await Promise.all(
     alerts.map(async (alert, index) => {
-      const data = JSON.stringify(alert).replace(/value: \d/g, `${alertTypesDoc[index].id}`)
+      const data = JSON.stringify(alert).replace(
+        /"value":\d/g,
+        `"value":${alertTypesDoc[index].id}`,
+      )
       return await payload.create({ collection: "alerts", data: JSON.parse(data) })
+    }),
+  )
+
+  payload.logger.info("-- Seeding news...")
+  const newsDoc = await Promise.all(
+    news.map(async (newsItem, index) => {
+      const data = JSON.stringify(newsItem).replace(/"image":\d/g, `"image":${newsMedia[index]}`)
+      return await payload.create({ collection: "news", data: JSON.parse(data) })
     }),
   )
 

@@ -1,5 +1,6 @@
 import type { RichTextElement } from "@payloadcms/richtext-slate/dist/types"
 
+import br from "./br"
 import smallBody from "./smallBody"
 
 const elements: RichTextElement[] = [
@@ -11,7 +12,11 @@ const elements: RichTextElement[] = [
   "h5",
   "h6",
   "link",
+  "upload",
+  "ul",
+  "ol",
   smallBody,
+  br,
 ]
 
 export default elements

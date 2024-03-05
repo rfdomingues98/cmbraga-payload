@@ -62,8 +62,8 @@ export function Alert({ title, description, link, alertsLength, timeLeft, durati
             {/* <span className="text-base font-medium text-link">
               {category?.data.attributes.name}
             </span> */}
-            <h3 className="pb-2 pt-1 text-2xl font-semibold tracking-normal">{title}</h3>
-            <AlertDescription className="gap-x-2 text-ellipsis text-base text-muted lg:line-clamp-2 xl:line-clamp-3">
+            <h2 className="pb-2 pt-1 text-2xl font-semibold tracking-normal">{title}</h2>
+            <AlertDescription className="gap-x-2 text-ellipsis text-base text-primary/80 lg:line-clamp-2 xl:line-clamp-3">
               {description}
             </AlertDescription>
           </div>

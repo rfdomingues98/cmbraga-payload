@@ -74,6 +74,7 @@ const richText: RichText = (
                   admin: {
                     condition: (_, data) => Boolean(data?.enableLink),
                   },
+                  defaultValue: "custom",
                 },
               }),
             ],

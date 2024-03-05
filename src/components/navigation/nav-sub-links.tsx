@@ -1,13 +1,9 @@
-import { type Locale } from "@/config/base"
-import { type GetNavType, type NavigationMenu } from "@/lib/utils"
+import { type Locale } from "@/config"
 import { Link } from "@/navigation"
 import { useLocale } from "next-intl"
 
 type FooterMenuProps = {
-  subMenu: GetNavType<
-    NavigationMenu,
-    "shared.navigation-menu"
-  >["navigation_menu"]["data"]["attributes"]["links"]
+  subMenu: any
   maxLinks: number
   className?: string
 }

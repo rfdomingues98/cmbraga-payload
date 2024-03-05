@@ -104,7 +104,6 @@ export const Footer: GlobalConfig = {
     link({
       overrides: {
         name: "legal",
-        required: true,
       },
     }),
     {

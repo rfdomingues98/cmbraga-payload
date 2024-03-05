@@ -1,7 +1,4 @@
 import Image from "next/image"
-import Link from "next/link"
-import ArrowSvg from "@/components/arrow-svg"
-import { VerticalTicker } from "@/components/infinite-ticker/vertical-ticker"
 import { MouseGradient } from "@/components/mouse-gradient"
 import { cn } from "@/lib/utils"
 
@@ -43,24 +40,11 @@ export default function Page() {
         <div className="z-1 container relative mx-auto flex w-full flex-col items-end justify-between px-[72px] md:flex-row">
           <Gradients />
           <h1 className="z-10 w-[850px] cursor-default font-canopee text-[240px] leading-[240px] text-white subpixel-antialiased mix-blend-overlay">
-            Agenda de Braga 2024
+            Calendario
           </h1>
-          <div className="relative flex max-h-48 overflow-hidden">
-            <VerticalTicker duration={2000} easing={"linear"} delay={0} reverse={true}>
-              <ArrowSvg />
-            </VerticalTicker>
-            <div className="relative z-10 mb-2 flex w-full max-w-[170px] flex-col gap-6 self-end border-dashed border-white px-5 py-3">
-              <Link href="#">Destaques da Semana</Link>
-              <Link href="#">Descobrir Braga</Link>
-              <Link href="#">Quando em Braga</Link>
-            </div>
-          </div>
         </div>
         <MouseGradient />
       </section>
-      <section className="h-screen"></section>
-      <section className="h-screen"></section>
-      <section className="h-screen"></section>
     </>
   )
 }

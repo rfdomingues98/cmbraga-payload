@@ -7,7 +7,7 @@ import nestedDocs from "@payloadcms/plugin-nested-docs"
 import redirects from "@payloadcms/plugin-redirects"
 import seo from "@payloadcms/plugin-seo"
 import type { GenerateTitle } from "@payloadcms/plugin-seo/types"
-import { lexicalEditor } from "@payloadcms/richtext-lexical"
+import { slateEditor } from "@payloadcms/richtext-slate"
 import dotenv from "dotenv"
 import { buildConfig } from "payload/config"
 
@@ -18,7 +18,6 @@ import { Media } from "./collections/Media"
 import { Menus } from "./collections/Menus"
 import { News } from "./collections/News"
 import { Pages } from "./collections/Pages"
-import { Posts } from "./collections/Posts"
 import Users from "./collections/Users"
 import { Footer } from "./globals/Footer"
 import { Header } from "./globals/Header"
@@ -35,7 +34,7 @@ dotenv.config({
 
 export default buildConfig({
   admin: {
-    livePreview: {
+    /* livePreview: {
       url: process.env.NEXT_PUBLIC_ADMIN_LIVE_PREVIEW_URL,
       collections: ["pages", "news"],
       breakpoints: [
@@ -46,68 +45,79 @@ export default buildConfig({
           height: 667,
         },
       ],
-    },
-    css: path.resolve(__dirname, "graphics/styles.scss"),
-    user: Users.slug,
+    }, */
     bundler: webpackBundler(),
     components: {
       graphics: {
-        Logo,
         Icon,
+        Logo,
       },
     },
-    webpack: (config) => ({
-      ...config,
-      resolve: {
-        ...config.resolve,
-        alias: {
-          ...config.resolve.alias,
-          dotenv: path.resolve(__dirname, "./dotenv.js"),
-          [path.resolve(__dirname, "./endpoints/seed")]: path.resolve(
-            __dirname,
-            "./emptyModuleMock.js",
-          ),
+    css: path.resolve(__dirname, "graphics/styles.scss"),
+    user: Users.slug,
+    webpack: (config) => {
+      const newConfig = {
+        ...config,
+        resolve: {
+          ...config.resolve,
+          alias: {
+            ...config.resolve.alias,
+            dotenv: path.resolve(__dirname, "./dotenv.js"),
+            [path.resolve(__dirname, "./endpoints/seed")]: path.resolve(
+              __dirname,
+              "./emptyModuleMock.js",
+            ),
+          },
         },
-      },
-    }),
+      }
+      /* console.log({ newConfig: JSON.stringify(newConfig, null, 2) }) */
+
+      return newConfig
+    },
   },
-  editor: lexicalEditor({}),
-  localization: {
-    locales: [
-      { label: "Português", code: "pt" },
-      { label: "English", code: "en" },
-      { label: "Español", code: "es" },
-    ],
-    defaultLocale: "pt",
-    fallback: true,
-  },
+  collections: [Pages, Media, Categories, Users, Menus, News, AlertTypes, Alerts],
+  cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
+  csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI,
     },
   }),
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Pages, Media, Categories, Users, Menus, Posts, News, AlertTypes, Alerts],
-  globals: [Header, Footer],
-  typescript: {
-    outputFile: path.resolve(__dirname, "payload-types.ts"),
-  },
-  cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
-  csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
+  editor: slateEditor({}),
   endpoints: [],
+  globals: [Header, Footer],
+  localization: {
+    defaultLocale: "pt",
+    fallback: true,
+    locales: [
+      { code: "pt", label: "Português" },
+      { code: "en", label: "English" },
+      { code: "es", label: "Español" },
+    ],
+  },
   plugins: [
     redirects({
       collections: ["pages"],
     }),
     nestedDocs({
-      collections: [],
+      collections: ["pages"],
+      generateLabel: (_, doc) => doc.title as string,
+      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ""),
     }),
     seo({
-      collections: ["pages"],
+      collections: ["pages", "news"],
       generateTitle,
       uploadsCollection: "media",
     }),
     formBuilder({}),
     payloadCloud(),
   ],
+  rateLimit: {
+    max: 4000,
+    trustProxy: true,
+  },
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
+  typescript: {
+    outputFile: path.resolve(__dirname, "payload-types.ts"),
+  },
 })

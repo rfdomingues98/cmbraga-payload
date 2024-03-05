@@ -31,11 +31,16 @@ const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HT
 CardTitle.displayName = "CardTitle"
 
 const CardDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
-))
+  HTMLParagraphElement | HTMLDivElement,
+  | (React.HTMLAttributes<HTMLParagraphElement> & { as?: "p" })
+  | (React.HTMLAttributes<HTMLDivElement> & { as: "div" })
+>(({ className, as = "p", ...props }, ref) => {
+  return as === "p" ? (
+    <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
+  ) : (
+    <div ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
+  )
+})
 CardDescription.displayName = "CardDescription"
 
 const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(

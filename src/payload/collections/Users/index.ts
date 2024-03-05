@@ -1,8 +1,7 @@
 import type { CollectionConfig } from "payload/types"
 
-import { admins } from "../../access/admins"
-import { anyone } from "../../access/anyone"
-import adminsAndUser from "./access/adminsAndUser"
+import { isAdmin, isAdminFieldLevel } from "../../access/isAdmin"
+import { isAdminOrSelf } from "../../access/isAdminOrSelf"
 import { checkRole } from "./checkRole"
 import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin"
 import { loginAfterCreate } from "./hooks/loginAfterCreate"
@@ -14,10 +13,9 @@ const Users: CollectionConfig = {
     defaultColumns: ["name", "email"],
   },
   access: {
-    read: adminsAndUser,
-    create: anyone,
-    update: adminsAndUser,
-    delete: admins,
+    read: isAdminOrSelf,
+    update: isAdminOrSelf,
+    delete: isAdmin,
     admin: ({ req: { user } }) => checkRole(["admin"], user),
   },
   hooks: {
@@ -48,9 +46,9 @@ const Users: CollectionConfig = {
         beforeChange: [ensureFirstUserIsAdmin],
       },
       access: {
-        read: admins,
-        create: admins,
-        update: admins,
+        read: isAdminFieldLevel,
+        create: isAdminFieldLevel,
+        update: isAdminFieldLevel,
       },
     },
   ],

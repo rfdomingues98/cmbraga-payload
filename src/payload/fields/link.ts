@@ -1,18 +1,16 @@
-import type { Field } from "payload/types"
+import type { Field, GroupField } from "payload/types"
 
 import deepMerge from "../utilities/deepMerge"
 
-type LinkType = (options?: { disableLabel?: boolean; overrides?: Partial<Field> }) => Field
+type LinkType = (options?: { disableLabel?: boolean; overrides?: Partial<GroupField> }) => Field
 
 const link: LinkType = ({ disableLabel = false, overrides = {} } = {}) => {
   const linkResult: Field = {
     name: "link",
     type: "group",
-    access: {
-      read: () => true,
-    },
     admin: {
       hideGutter: true,
+      ...(overrides?.admin || {}),
     },
     fields: [
       {
@@ -61,6 +59,7 @@ const link: LinkType = ({ disableLabel = false, overrides = {} } = {}) => {
       type: "relationship",
       relationTo: ["pages"],
       required: true,
+      maxDepth: 1,
       admin: {
         condition: (_, siblingData) => siblingData?.link_type === "reference",
       },
@@ -93,7 +92,8 @@ const link: LinkType = ({ disableLabel = false, overrides = {} } = {}) => {
           name: "label",
           label: "Label",
           type: "text",
-          localized: true,
+          // ! Uncomment this on the next Payload release. There is a bug affecting localized fields inside array fields that will be fixed in the next release.
+          /* localized: true, */
           admin: {
             width: "50%",
           },
