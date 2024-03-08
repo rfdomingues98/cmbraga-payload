@@ -13,11 +13,11 @@ variables:
 
   # Web app name
   - name: webAppName
-    value: 'cmbraga-payload'
+    value: 'cmbraga-payloadcms'
 
   # Environment name
   - name: environmentName
-    value: 'cmbraga-payload'
+    value: 'cmbraga-payloadcms'
 
   # Agent VM image name
   - name: vmImageName
@@ -73,7 +73,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Azure Web App Deploy: cmbraga-payload'
+            displayName: 'Azure Web App Deploy: cmbraga-payloadcms'
             inputs:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
